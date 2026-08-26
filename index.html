@@ -207,10 +207,11 @@
 
     .hero-evidence {
       display: grid;
-      gap: 14px;
+      gap: 12px;
     }
 
     .proof-panel,
+    .adoption-panel,
     .patent-panel {
       border: 1px solid var(--deep-line);
       background: var(--deep-2);
@@ -270,6 +271,35 @@
       color: #b8c5c0;
       font-size: 12px;
       line-height: 1.5;
+    }
+
+    .adoption-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px 14px;
+      align-items: center;
+      padding: 8px 14px;
+      background: rgba(27, 48, 42, 0.74);
+    }
+
+    .adoption-copy {
+      margin: 0;
+      color: #dce5e1;
+      font-size: 11.5px;
+      font-weight: 650;
+      line-height: 1.35;
+    }
+
+    .adoption-copy strong { color: #efd7a9; }
+
+    .adoption-boundary {
+      display: block;
+      margin-top: 3px;
+      color: #91a59d;
+      font-size: 8px;
+      font-weight: 750;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
     }
 
     .patent-panel {
@@ -467,6 +497,25 @@
       font-size: 13px;
       font-weight: 650;
     }
+
+    .adoption-detail {
+      margin-top: 14px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(251, 250, 247, 0.62);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .adoption-detail summary {
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .adoption-detail p { margin: 12px 0 0; }
 
     .principles {
       padding: clamp(34px, 5vw, 58px);
@@ -673,6 +722,8 @@
       .hero-summary { margin-top: 15px; font-size: 12px; line-height: 1.72; }
       .hero-evidence { gap: 9px; }
       .proof-panel { padding: 16px; }
+      .adoption-panel { padding: 12px 14px; }
+      .adoption-copy { font-size: 11px; }
       .panel-heading { margin-bottom: 12px; }
       .metric { padding: 12px 10px; }
       .metric-number { font-size: 36px; }
@@ -717,6 +768,16 @@
       .hero-summary { margin-top: 12px; font-size: 11.5px; line-height: 1.65; }
       .hero-evidence { gap: 9px; }
       .proof-panel { padding: 13px 14px 12px; border-radius: 16px; }
+      .adoption-panel {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 7px 10px;
+        padding: 8px 12px;
+        border-radius: 14px;
+      }
+      .adoption-copy { font-size: 9.7px; line-height: 1.45; }
+      .adoption-phrase { display: block; white-space: nowrap; }
+      .adoption-boundary { margin-top: 2px; font-size: 7.6px; }
+      .adoption-panel .source-link { white-space: nowrap; }
       .patent-panel { padding: 12px 14px 13px; border-radius: 16px; }
       .panel-heading { margin-bottom: 8px; }
       .panel-heading h2,
@@ -795,11 +856,16 @@
             </div>
           </section>
 
+          <section class="adoption-panel" aria-label="OpenClaw credit付き採用">
+            <p class="adoption-copy"><strong>OpenClaw</strong> — 提出した修正案を<span class="adoption-phrase">本家側が置換PRへ引き継ぎ、</span><span class="adoption-phrase">共同著者credit付きで採用。</span><span class="adoption-boundary">Credited upstream adoption · 24 / 20とは別枠</span></p>
+            <a class="source-link" href="https://github.com/openclaw/openclaw/pull/129927">採用原本 ↗</a>
+          </section>
+
           <section class="patent-panel" aria-labelledby="patent-title">
             <h2>独自の安全設計</h2>
-            <p class="patent-title" id="patent-title">AI安全技術を特許庁へ出願済み</p>
+            <p class="patent-title" id="patent-title">本人が承認しても、危険な送金を止められる。</p>
             <span class="patent-id">JP2025-248070</span>
-            <p class="patent-example">詐欺などで本人自身が送金を承認した場合でも、そのまま不可逆な操作を通さず、家族など正当な第三者の確認を挟んで停止できる仕組み。</p>
+            <p class="patent-example">本人が詐欺などで危険な送金を承認してしまった場合でも、家族など正当な第三者の確認で、不可逆な実行前に停止できる仕組みを特許庁へ出願済み。</p>
           </section>
 
           <p class="safety-line">本人確認済みの利用者であっても、危険な判断をする可能性まで含めて、AIを止める境界を設計します。</p>
@@ -856,6 +922,11 @@
           <a href="https://github.com/dynawo/dyn-grid-compliance-verification/pull/385">Dynawo — 電力系統適合性確認ツール ↗</a>
         </div>
       </div>
+
+      <details class="adoption-detail">
+        <summary>OpenClawのcredit付き採用経路を確認する</summary>
+        <p><a href="https://github.com/openclaw/openclaw/pull/125722">提出PR #125722</a>は未mergeのままclose。本家側の<a href="https://github.com/openclaw/openclaw/pull/129927">置換PR #129927</a>がmainへmergeされ、<a href="https://github.com/openclaw/openclaw/commit/1f7101844b53c9f8be709b2b462f2bca4ca66fcc">採用commit</a>にはshin4141の共同著者creditが記録されています。これはdirect upstream merge 24件には含めていません。</p>
+      </details>
     </section>
 
     <section class="section" aria-labelledby="principles-title">
