@@ -821,11 +821,12 @@
       <div class="hero-topline">
         <p class="hero-kicker">PUBLIC EVIDENCE / AI IMPLEMENTATION &amp; SAFETY</p>
         <ul class="brand-strip" aria-label="公開実装先">
+          <li>NIST</li>
           <li>Apple</li>
+          <li>Ethereum</li>
+          <li>Solana</li>
           <li>Sony</li>
           <li>Vercel</li>
-          <li>Adyen</li>
-          <li>Dynawo</li>
         </ul>
       </div>
 
@@ -842,22 +843,22 @@
           <section class="proof-panel" aria-labelledby="proof-title">
             <div class="panel-heading">
               <h2 id="proof-title">公開実装</h2>
-              <a class="source-link" href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md">24件の明細 ↗</a>
+              <a class="source-link" href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md">28件の明細 ↗</a>
             </div>
             <div class="metrics">
               <div class="metric">
-                <span class="metric-number">20</span>
+                <span class="metric-number">24</span>
                 <span class="metric-label">独立した公式OSS<br>プロジェクト</span>
               </div>
               <div class="metric">
-                <span class="metric-number">24</span>
+                <span class="metric-number">28</span>
                 <span class="metric-label">プロジェクト本体へ<br>取り込まれた変更</span>
               </div>
             </div>
           </section>
 
           <section class="adoption-panel" aria-label="OpenClaw credit付き採用">
-            <p class="adoption-copy"><strong>OpenClaw</strong> — 提出した修正案を<span class="adoption-phrase">本家側が置換PRへ引き継ぎ、</span><span class="adoption-phrase">共同著者credit付きで採用。</span><span class="adoption-boundary">Credited upstream adoption · 24 / 20とは別枠</span></p>
+            <p class="adoption-copy"><strong>OpenClaw</strong> — 提出した修正案を<span class="adoption-phrase">本家側が置換PRへ引き継ぎ、</span><span class="adoption-phrase">共同著者credit付きで採用。</span><span class="adoption-boundary">Credited upstream adoption · 28 / 24とは別枠</span></p>
             <a class="source-link" href="https://github.com/openclaw/openclaw/pull/129927">採用原本 ↗</a>
           </section>
 
@@ -891,7 +892,15 @@
 
       <div class="case-grid">
         <article class="case-card">
-          <div class="case-meta"><span>Case 01</span><span class="case-company">Apple</span></div>
+          <div class="case-meta"><span>Case 01</span><span class="case-company">NIST</span></div>
+          <h3>macOS Security Compliance Project</h3>
+          <p class="case-copy"><strong>何を直したか</strong>除外指定された規則がJSON manifestへ混入する生成経路を修正し、既存の構成プロファイル除外動作は維持しました。</p>
+          <p class="case-copy"><strong>なぜ意味があるか</strong>人が指定した除外方針と、機械が読むセキュリティ準拠情報の不一致を防ぎます。</p>
+          <a class="source-link-light" href="https://github.com/usnistgov/macos_security/pull/775">原本PRを確認する ↗</a>
+        </article>
+
+        <article class="case-card">
+          <div class="case-meta"><span>Case 02</span><span class="case-company">Apple</span></div>
           <h3>Swift OpenAPI Generator</h3>
           <p class="case-copy"><strong>何を直したか</strong>API定義の名前が衝突すると突然停止する処理を、原因と回避方法が分かるエラーへ変更しました。</p>
           <p class="case-copy"><strong>なぜ意味があるか</strong>利用者が、理由の分からない停止から復帰できます。</p>
@@ -899,33 +908,25 @@
         </article>
 
         <article class="case-card">
-          <div class="case-meta"><span>Case 02</span><span class="case-company">Sony</span></div>
-          <h3>nmos-cpp</h3>
-          <p class="case-copy"><strong>何を直したか</strong>特殊なネットワーク識別子が規格外の機器情報を作る経路に、検証と安全な代替処理を追加しました。</p>
-          <p class="case-copy"><strong>なぜ意味があるか</strong>想定外の入力があっても、外へ出す情報全体を不正な状態にしません。</p>
-          <a class="source-link-light" href="https://github.com/sony/nmos-cpp/pull/520">原本PRを確認する ↗</a>
-        </article>
-
-        <article class="case-card">
-          <div class="case-meta"><span>Case 03</span><span class="case-company">Vercel</span></div>
-          <h3>Workflow</h3>
-          <p class="case-copy"><strong>何を直したか</strong>step本体と作成履歴が別々に保存され、障害時に片方だけ残る問題を修正しました。</p>
-          <p class="case-copy"><strong>なぜ意味があるか</strong>実際の状態と履歴を一致させ、失敗後もrollback・recoveryできる状態を守ります。</p>
-          <a class="source-link-light" href="https://github.com/vercel/workflow/pull/3575">原本PRを確認する ↗</a>
+          <div class="case-meta"><span>Case 03</span><span class="case-company">Hyperledger Besu / Ethereum</span></div>
+          <h3>Besu — Ethereum execution client</h3>
+          <p class="case-copy"><strong>何を直したか</strong>state-testのJSON出力末尾に人向け要約が混ざる経路を、通常のJSON modeだけ要約を出さないよう修正しました。</p>
+          <p class="case-copy"><strong>なぜ意味があるか</strong>他の表示・終了動作を変えず、機械可読なJSONLを自動処理へ安全に渡せます。</p>
+          <a class="source-link-light" href="https://github.com/besu-eth/besu/pull/11128">原本PRを確認する ↗</a>
         </article>
       </div>
 
       <div class="more-proof" aria-label="その他の公開実績">
         <span class="more-proof-label">その他の公開実績</span>
         <div class="more-proof-links">
-          <a href="https://github.com/Adyen/adyen-node-api-library/pull/1760">Adyen — Node.js API Library ↗</a>
-          <a href="https://github.com/dynawo/dyn-grid-compliance-verification/pull/385">Dynawo — 電力系統適合性確認ツール ↗</a>
+          <a href="https://github.com/anza-xyz/kit/pull/1971">Anza / Solana Kit — developer stack ↗</a>
+          <a href="https://github.com/sony/nmos-cpp/pull/520">Sony — nmos-cpp ↗</a>
         </div>
       </div>
 
       <details class="adoption-detail">
         <summary>OpenClawのcredit付き採用経路を確認する</summary>
-        <p><a href="https://github.com/openclaw/openclaw/pull/125722">提出PR #125722</a>は未mergeのままclose。本家側の<a href="https://github.com/openclaw/openclaw/pull/129927">置換PR #129927</a>がmainへmergeされ、<a href="https://github.com/openclaw/openclaw/commit/1f7101844b53c9f8be709b2b462f2bca4ca66fcc">採用commit</a>にはshin4141の共同著者creditが記録されています。これはdirect upstream merge 24件には含めていません。</p>
+        <p><a href="https://github.com/openclaw/openclaw/pull/125722">提出PR #125722</a>は未mergeのままclose。本家側の<a href="https://github.com/openclaw/openclaw/pull/129927">置換PR #129927</a>がmainへmergeされ、<a href="https://github.com/openclaw/openclaw/commit/1f7101844b53c9f8be709b2b462f2bca4ca66fcc">採用commit</a>にはshin4141の共同著者creditが記録されています。これはdirect upstream merge 28件には含めていません。</p>
       </details>
     </section>
 
