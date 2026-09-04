@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+  <meta name="description" content="保存も送信もしない、自動化候補の相談用アンケート。回答は端末上で整形し、メール下書きまたはコピーで利用できます。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css">
+  <title>自動化候補のご相談｜Nagata Shinichi</title>
+</head>
+<body>
+  <a class="skip-link" href="#questionnaire">質問へ移動</a>
+
+  <header class="site-bar" aria-label="ページ情報">
+    <span>Nagata Shinichi</span>
+    <span>ZERO-STORAGE INTAKE</span>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy">
+        <p class="eyebrow">自動化候補のご相談</p>
+        <h1 id="page-title">分かる項目だけ、<br>3分ほどで。</h1>
+        <p class="lead">全部回答する必要はありません。今の仕事で「ここだけ少し軽くしたい」と感じる箇所を、ひとつだけでも教えてください。</p>
+      </div>
+
+      <aside class="privacy-card" aria-labelledby="privacy-title">
+        <p class="card-number" aria-hidden="true">01</p>
+        <h2 id="privacy-title">このページは回答を保存しません</h2>
+        <ul>
+          <li>入力内容をサーバーへ送信しません</li>
+          <li>Cookie・アクセス解析・計測を使いません</li>
+          <li>ボタンを押した時だけ端末上で文章を整えます</li>
+        </ul>
+        <p class="warning"><strong>入力しないもの：</strong>顧客名、第三者の個人情報、秘密情報、パスワードやAPIキーなどの認証情報。会社名とお名前も任意です。</p>
+      </aside>
+    </section>
+
+    <section class="promise" aria-labelledby="promise-title">
+      <p class="card-number" aria-hidden="true">02</p>
+      <div>
+        <h2 id="promise-title">回答後にお返しするもの</h2>
+        <p>いただいた内容をもとに、次の3点を一度メールで無料返信します。</p>
+      </div>
+      <ol>
+        <li><span>最小の自動化案</span></li>
+        <li><span>公開情報から調べた市場価格帯</span></li>
+        <li><span>Shinが担当する場合の違い</span></li>
+      </ol>
+      <p class="boundary">この回答だけで、値引き・価格・契約・無制限の保証を確約することはありません。</p>
+    </section>
+
+    <section class="questionnaire-shell" id="questionnaire" aria-labelledby="questionnaire-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">任意回答</p>
+          <h2 id="questionnaire-title">今の作業について</h2>
+        </div>
+        <p>空欄のままで構いません。回答した項目だけがメール本文に入ります。</p>
+      </div>
+
+      <noscript>
+        <section class="noscript" aria-labelledby="noscript-title">
+          <h2 id="noscript-title">JavaScriptが無効です</h2>
+          <p>このページからは回答を整形できません。次の宛先へ、上の5問から分かるものを一つだけでも直接メールしてください。</p>
+          <a href="mailto:siriusa.paper@gmail.com?subject=%E8%87%AA%E5%8B%95%E5%8C%96%E5%80%99%E8%A3%9C%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87">siriusa.paper@gmail.com</a>
+        </section>
+      </noscript>
+
+      <form id="intake-form" novalidate>
+        <fieldset class="identity-fields">
+          <legend>基本情報（任意）</legend>
+          <div class="field compact-field">
+            <label for="company">会社名／事業名</label>
+            <input id="company" name="company" type="text" autocomplete="organization" maxlength="100">
+          </div>
+          <div class="field compact-field">
+            <label for="name">お名前</label>
+            <input id="name" name="name" type="text" autocomplete="name" maxlength="100">
+          </div>
+        </fieldset>
+
+        <fieldset class="question-fields">
+          <legend>主要5問（すべて任意）</legend>
+
+          <div class="field question-field">
+            <label for="q1"><span class="question-number">1</span><span>特に時間を減らしたい工程</span></label>
+            <p id="q1-help">例：問い合わせの振り分け、見積前の情報整理、週次報告の作成</p>
+            <textarea id="q1" name="q1" rows="3" aria-describedby="q1-help" maxlength="1200"></textarea>
+          </div>
+
+          <div class="field question-field">
+            <label for="q2"><span class="question-number">2</span><span>その作業の頻度と、およその所要時間</span></label>
+            <p id="q2-help">例：週3回、1回30分ほど</p>
+            <textarea id="q2" name="q2" rows="3" aria-describedby="q2-help" maxlength="1200"></textarea>
+          </div>
+
+          <div class="field question-field">
+            <label for="q3"><span class="question-number">3</span><span>現在使っているツールや管理方法</span></label>
+            <p id="q3-help">例：メール、スプレッドシート、チャット、紙のメモ</p>
+            <textarea id="q3" name="q3" rows="3" aria-describedby="q3-help" maxlength="1200"></textarea>
+          </div>
+
+          <div class="field question-field">
+            <label for="q4"><span class="question-number">4</span><span>必ず人が確認・承認したい部分</span></label>
+            <p id="q4-help">例：顧客への返信、金額の確定、公開前の最終確認</p>
+            <textarea id="q4" name="q4" rows="3" aria-describedby="q4-help" maxlength="1200"></textarea>
+          </div>
+
+          <div class="field question-field">
+            <label for="q5"><span class="question-number">5</span><span>最初に小さく試すなら対象にしたい作業</span></label>
+            <p id="q5-help">例：一種類の問い合わせだけ、毎週の集計だけ</p>
+            <textarea id="q5" name="q5" rows="3" aria-describedby="q5-help" maxlength="1200"></textarea>
+          </div>
+        </fieldset>
+
+        <div class="field other-field">
+          <label for="other">その他、先に伝えておきたい条件 <span>任意</span></label>
+          <textarea id="other" name="other" rows="4" maxlength="1600"></textarea>
+        </div>
+
+        <section class="actions" aria-labelledby="actions-title">
+          <div>
+            <p class="eyebrow">回答の使い方</p>
+            <h2 id="actions-title">保存せず、下書きへ</h2>
+            <p>メール下書きが開かない場合も、整形した回答はこのページに残ります。コピーして普段のメールから送れます。</p>
+          </div>
+          <div class="action-buttons">
+            <button class="primary-button" id="open-mail" type="button">メール下書きを開く</button>
+            <button class="secondary-button" id="copy-answer" type="button">回答をコピー</button>
+          </div>
+        </section>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+
+        <section class="result" id="result-panel" aria-labelledby="result-title" hidden>
+          <div class="result-heading">
+            <h2 id="result-title">整形済みの回答</h2>
+            <span>この端末だけに表示中</span>
+          </div>
+          <label class="visually-hidden" for="formatted-answer">整形済みの回答本文</label>
+          <textarea id="formatted-answer" rows="18" readonly></textarea>
+        </section>
+      </form>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>AIシステムの技術実装・検証 — Nagata Shinichi</p>
+    <p>このページは入力内容を収集・保存・送信しません。</p>
+  </footer>
+
+  <a id="mailto-launcher" class="visually-hidden" tabindex="-1" aria-hidden="true"></a>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
