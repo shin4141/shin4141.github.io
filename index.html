@@ -172,10 +172,15 @@
     h1 {
       margin: 0;
       font-family: ui-serif, "Yu Mincho", "Hiragino Mincho ProN", serif;
-      font-size: clamp(42px, 4.7vw, 68px);
+      font-size: clamp(40px, 4.3vw, 62px);
       font-weight: 500;
       line-height: 1.23;
       letter-spacing: -0.025em;
+    }
+
+    .headline-line {
+      display: block;
+      white-space: nowrap;
     }
 
     .hero-value-summary {
@@ -578,6 +583,39 @@
       line-height: 1.75;
     }
 
+    .trust-risk-panel {
+      margin-top: 24px;
+      padding: clamp(30px, 4.5vw, 50px);
+      border: 1px solid #d8c9ab;
+      border-top: 4px solid var(--accent);
+      border-radius: 22px;
+      background: #eee8dc;
+      color: #26342f;
+    }
+
+    .trust-risk-panel h3 {
+      max-width: 900px;
+      margin: 0 0 22px;
+      font-family: ui-serif, "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: clamp(28px, 3.2vw, 42px);
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+    }
+
+    .trust-risk-panel p {
+      max-width: 940px;
+      margin: 0 0 16px;
+      font-size: 16px;
+      line-height: 1.95;
+    }
+
+    .trust-risk-panel p:last-child {
+      margin-bottom: 0;
+      color: #1d3029;
+      font-weight: 720;
+    }
+
     .value-contact {
       margin-top: 24px;
       padding: clamp(28px, 4vw, 42px);
@@ -926,7 +964,7 @@
       .brand-strip { gap: 4px; }
       .brand-strip li { padding: 4px 8px; font-size: 10.5px; }
       .hero-grid { gap: 16px; padding: 18px 0 16px; }
-      h1 { font-size: 34px; line-height: 1.28; }
+      h1 { font-size: clamp(30px, 8.7vw, 34px); line-height: 1.3; }
       .hero-value-summary { margin-top: 16px; font-size: 16px; line-height: 1.75; }
       .identity-byline { margin-top: 18px; padding-top: 15px; gap: 8px 12px; }
       .person-name { font-size: 20px; }
@@ -963,6 +1001,9 @@
       .case-card { padding: 22px 20px; }
       .experience-card { padding: 22px 20px; }
       .experience-card h3 { font-size: 22px; }
+      .trust-risk-panel { padding: 26px 22px; }
+      .trust-risk-panel h3 { margin-bottom: 18px; font-size: 27px; }
+      .trust-risk-panel p { font-size: 15.5px; line-height: 1.9; }
       .value-contact { padding: 26px 22px; }
       .value-contact h3 { font-size: 25px; }
       .value-contact-action { min-width: 0; }
@@ -997,7 +1038,7 @@
 
       <div class="hero-grid">
         <div class="hero-identity">
-          <h1 id="page-title">御社がお客様から選ばれている理由を、複利化しませんか。</h1>
+          <h1 id="page-title"><span class="headline-line">御社がお客様から</span><span class="headline-line">選ばれている理由を、</span><span class="headline-line">複利化しませんか。</span></h1>
           <p class="hero-value-summary">お客様が喜んだ対応や、交わした約束を次の仕事へ。担当者が替わっても、御社の強みが積み上がる仕組みをつくります。</p>
           <div class="identity-byline" aria-label="運営者">
             <span class="person-name">Nagata Shinichi</span>
@@ -1071,8 +1112,16 @@
         </article>
       </div>
 
-      <p class="experience-return">喜ばれた対応や、うまくいかなかった理由を次の仕事へ戻し、日々の経験から改善を重ねます。</p>
       <p class="development-note">開発・検証中：顧客ごとの会話や約束を記録し、次の行動へつなぐ部分は一部確認済みです。自然文の自動整理、属性に合う文面選択、承認範囲内の自動送信、利用画面は、現在も検証・接続中です。</p>
+
+      <div class="trust-risk-panel" aria-labelledby="trust-risk-title">
+        <h3 id="trust-risk-title">積み上げた信頼を守りながら、AIに任せる仕事を増やす。</h3>
+        <p>お客様が喜んだ対応や、交わした約束を次の仕事へ。その積み重ねが、御社の強みを育てます。</p>
+        <p>一方で、AIが賢くなっても、間違えたときの影響まで自動で小さくなるわけではありません。顧客情報の更新とメール送信がつながっていれば、一つの誤りが、その先のお客様への対応にも広がることがあります。</p>
+        <p>だから、AIに任せる範囲、人が確認する場面、異常があれば止める場所を設計します。問題が起きたときの記録も、次の改善へ戻します。</p>
+        <p>私は、27の公開OSSリポジトリで31件の修正が採用された実装・検証の経験を、この仕組みづくりに活かします。</p>
+        <p>日々の仕事を楽にし、その経験を次へ残す。御社がお客様から選ばれる理由を、長く育てていくためのご提案です。</p>
+      </div>
 
       <div class="value-contact" aria-labelledby="value-contact-title">
         <div>
@@ -1087,28 +1136,9 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="technical-overview-title">
-      <div class="technical-overview">
-        <div>
-          <p class="section-number">02 / Technical implementation</p>
-          <h2 class="technical-tagline" id="technical-overview-title">AIが<strong>動いたように見える</strong>のに、正しく完了していない境界を検証・修理します。</h2>
-          <p class="technical-summary">未知のコードベースへ入り、エラー、二重実行、再試行、中断・再開、状態不整合などの異常系を第三者として検証します。必要に応じて最小修正とテストまで行い、公開リポジトリのメンテナー審査を通った証拠と、未確認範囲を分離した再開可能な記録を残します。</p>
-        </div>
-        <div class="technical-evidence">
-          <section class="patent-panel" aria-labelledby="patent-title">
-            <h2>独自の安全設計</h2>
-            <p class="patent-title" id="patent-title">本人が承認しても、危険な送金を止められる。</p>
-            <span class="patent-id">JP2025-248070</span>
-            <p class="patent-example">本人が詐欺などで危険な送金を承認してしまった場合でも、家族など正当な第三者の確認で、不可逆な実行前に停止できる仕組みを特許庁へ出願済み。</p>
-          </section>
-          <p class="safety-line">本人確認済みの利用者であっても、危険な判断をする可能性まで含めて、AIを止める境界を設計します。</p>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="implementation" aria-labelledby="implementation-title">
       <div class="section-heading">
-        <p class="section-number">03 / Public implementation</p>
+        <p class="section-number">02 / Public implementation</p>
         <div>
           <h2 id="implementation-title">実際に、何を直してきたか。</h2>
           <p class="section-lead">専門用語を知らなくても、問題・修正・意味が分かるように、代表的な3件だけを紹介します。各リンクから公式プロジェクトの原本PRへ移動できます。</p>
@@ -1153,6 +1183,25 @@
       <div class="adoption-detail">
         <h3>OpenClawのcredit付き採用経路</h3>
         <p><a href="https://github.com/openclaw/openclaw/pull/125722">提出PR #125722</a>は未mergeのままclose。本家側の<a href="https://github.com/openclaw/openclaw/pull/129927">置換PR #129927</a>がmainへmergeされ、<a href="https://github.com/openclaw/openclaw/commit/1f7101844b53c9f8be709b2b462f2bca4ca66fcc">採用commit</a>にはshin4141の共同著者creditが記録されています。これはdirect upstream merge 31件には含めていません。</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="technical-overview-title">
+      <div class="technical-overview">
+        <div>
+          <p class="section-number">03 / Technical implementation</p>
+          <h2 class="technical-tagline" id="technical-overview-title">境界を検証し、異常時に止め、戻せる形で実装します。</h2>
+          <p class="technical-summary">未知のコードベースへ入り、エラー、二重実行、再試行、中断・再開、状態不整合などの異常系を第三者として検証します。必要に応じて最小修正とテストまで行い、公開リポジトリのメンテナー審査を通った証拠と、未確認範囲を分離した再開可能な記録を残します。</p>
+        </div>
+        <div class="technical-evidence">
+          <section class="patent-panel" aria-labelledby="patent-title">
+            <h2>独自の安全設計</h2>
+            <p class="patent-title" id="patent-title">本人が承認しても、危険な送金を止められる。</p>
+            <span class="patent-id">JP2025-248070</span>
+            <p class="patent-example">本人が詐欺などで危険な送金を承認してしまった場合でも、家族など正当な第三者の確認で、不可逆な実行前に停止できる仕組みを特許庁へ出願済み。</p>
+          </section>
+          <p class="safety-line">本人確認済みの利用者であっても、危険な判断をする可能性まで含めて、AIを止める境界を設計します。</p>
+        </div>
       </div>
     </section>
 
