@@ -106,7 +106,7 @@
     .hero-topline {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       gap: 24px;
       padding-bottom: 24px;
       border-bottom: 1px solid var(--deep-line);
@@ -126,7 +126,7 @@
       justify-content: flex-end;
       gap: 9px;
       flex-wrap: wrap;
-      margin: 0;
+      margin: 0 0 2px;
       padding: 0;
       list-style: none;
     }
@@ -172,42 +172,48 @@
     h1 {
       margin: 0;
       font-family: ui-serif, "Yu Mincho", "Hiragino Mincho ProN", serif;
-      font-size: clamp(52px, 6vw, 86px);
+      font-size: clamp(42px, 4.7vw, 68px);
       font-weight: 500;
-      line-height: 1.02;
-      letter-spacing: -0.035em;
+      line-height: 1.23;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-value-summary {
+      max-width: 650px;
+      margin: 24px 0 0;
+      color: #d3ddd9;
+      font-size: clamp(17px, 1.45vw, 21px);
+      line-height: 1.85;
+    }
+
+    .identity-byline {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--deep-line);
+    }
+
+    .person-name {
+      color: #f4ead5;
+      font-family: ui-serif, Georgia, serif;
+      font-size: 24px;
+      line-height: 1.2;
     }
 
     .role {
-      margin: 15px 0 0;
-      color: #c9d3cf;
-      font-size: clamp(17px, 1.6vw, 22px);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-
-    .tagline {
-      max-width: 690px;
-      margin: clamp(28px, 4vh, 42px) 0 0;
-      font-size: clamp(25px, 2.8vw, 40px);
-      font-weight: 720;
-      line-height: 1.45;
-      letter-spacing: -0.015em;
-    }
-
-    .tagline strong { color: #efd7a9; }
-
-    .hero-summary {
-      max-width: 650px;
-      margin: 22px 0 0;
       color: #aebdb8;
-      font-size: 15px;
-      line-height: 1.9;
+      font-size: 13px;
+      font-weight: 650;
+      letter-spacing: 0.05em;
     }
 
     .hero-evidence {
       display: grid;
       gap: 12px;
+      align-content: center;
     }
 
     .proof-panel,
@@ -515,7 +521,162 @@
       font-weight: 700;
     }
 
+    .adoption-detail h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
     .adoption-detail p { margin: 12px 0 0; }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .experience-card {
+      min-width: 0;
+      padding: 26px 25px 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      box-shadow: 0 7px 24px rgba(18, 31, 27, 0.035);
+    }
+
+    .experience-card h3 {
+      margin: 0 0 14px;
+      color: var(--ink);
+      font-family: ui-serif, "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .experience-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .experience-return {
+      margin: 22px 0 0;
+      padding: 19px 22px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      color: #304039;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.8;
+    }
+
+    .development-note {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .value-contact {
+      margin-top: 24px;
+      padding: clamp(28px, 4vw, 42px);
+      border-radius: 22px;
+      background: var(--deep);
+      color: var(--cream);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 26px 36px;
+      align-items: center;
+    }
+
+    .value-contact h3 {
+      margin: 0;
+      font-family: ui-serif, "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: clamp(25px, 2.8vw, 36px);
+      font-weight: 500;
+      line-height: 1.55;
+    }
+
+    .value-contact-copy {
+      margin: 14px 0 0;
+      color: #c2cfca;
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .value-contact-note {
+      margin: 12px 0 0;
+      color: #9eb0a9;
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .value-contact-action {
+      min-width: 220px;
+      text-align: center;
+    }
+
+    .email-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 210px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      background: #efd7a9;
+      color: #16201d;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .email-button:hover { background: #f5e5c5; }
+
+    .email-address {
+      display: block;
+      margin-top: 12px;
+      color: #d7e0dc;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .technical-overview {
+      padding: clamp(34px, 5vw, 58px);
+      border-radius: 24px;
+      background: var(--deep);
+      color: var(--cream);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
+      gap: clamp(30px, 5vw, 68px);
+      align-items: center;
+    }
+
+    .technical-overview .section-number { color: #91a59d; }
+
+    .technical-tagline {
+      max-width: 680px;
+      margin: 12px 0 0;
+      font-size: clamp(27px, 3vw, 42px);
+      font-weight: 720;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+    }
+
+    .technical-tagline strong { color: #efd7a9; }
+
+    .technical-summary {
+      max-width: 650px;
+      margin: 20px 0 0;
+      color: #aebdb8;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .technical-evidence {
+      display: grid;
+      gap: 14px;
+    }
 
     .principles {
       padding: clamp(34px, 5vw, 58px);
@@ -701,8 +862,10 @@
         gap: 40px;
       }
       .case-grid { grid-template-columns: 1fr; }
+      .experience-grid { grid-template-columns: 1fr; }
       .case-card { min-height: 0; }
       .section-heading { grid-template-columns: 130px minmax(0, 1fr); }
+      .technical-overview { grid-template-columns: 1fr; }
     }
 
     @media (min-width: 801px) and (max-width: 900px) {
@@ -716,10 +879,11 @@
         gap: 24px;
         padding: 28px 0 20px;
       }
-      h1 { font-size: 49px; }
-      .role { margin-top: 10px; font-size: 14px; }
-      .tagline { margin-top: 22px; font-size: 24px; }
-      .hero-summary { margin-top: 15px; font-size: 12px; line-height: 1.72; }
+      h1 { font-size: 39px; }
+      .hero-value-summary { margin-top: 18px; font-size: 15px; line-height: 1.75; }
+      .identity-byline { margin-top: 20px; padding-top: 16px; }
+      .person-name { font-size: 21px; }
+      .role { font-size: 12px; }
       .hero-evidence { gap: 9px; }
       .proof-panel { padding: 16px; }
       .adoption-panel { padding: 12px 14px; }
@@ -744,7 +908,9 @@
       .hero-foot { align-items: flex-start; flex-direction: column; }
       .section-heading { grid-template-columns: 1fr; gap: 8px; }
       .principles-grid,
-      .contact-layout { grid-template-columns: 1fr; }
+      .contact-layout,
+      .value-contact { grid-template-columns: 1fr; }
+      .value-contact-action { text-align: left; }
     }
 
     @media (max-width: 560px) {
@@ -756,16 +922,15 @@
         padding: 16px 16px 22px;
       }
       .hero-topline { gap: 12px; padding-bottom: 12px; }
-      .hero-kicker { font-size: 9px; line-height: 1.5; }
+      .hero-kicker { font-size: 9.5px; line-height: 1.5; }
       .brand-strip { gap: 4px; }
-      .brand-strip li { padding: 3px 7px; font-size: 9.5px; }
+      .brand-strip li { padding: 4px 8px; font-size: 10.5px; }
       .hero-grid { gap: 16px; padding: 18px 0 16px; }
-      .identity-label { display: none; }
-      h1 { font-size: 42px; line-height: 0.98; }
-      .role { margin-top: 8px; font-size: 14px; }
-      .tagline { margin-top: 16px; font-size: 21px; line-height: 1.48; }
-      .mobile-no-break { white-space: nowrap; }
-      .hero-summary { margin-top: 12px; font-size: 11.5px; line-height: 1.65; }
+      h1 { font-size: 34px; line-height: 1.28; }
+      .hero-value-summary { margin-top: 16px; font-size: 16px; line-height: 1.75; }
+      .identity-byline { margin-top: 18px; padding-top: 15px; gap: 8px 12px; }
+      .person-name { font-size: 20px; }
+      .role { font-size: 12px; }
       .hero-evidence { gap: 9px; }
       .proof-panel { padding: 13px 14px 12px; border-radius: 16px; }
       .adoption-panel {
@@ -774,9 +939,9 @@
         padding: 8px 12px;
         border-radius: 14px;
       }
-      .adoption-copy { font-size: 9.7px; line-height: 1.45; }
-      .adoption-phrase { display: block; white-space: nowrap; }
-      .adoption-boundary { margin-top: 2px; font-size: 7.6px; }
+      .adoption-copy { font-size: 11px; line-height: 1.5; }
+      .adoption-phrase { display: block; }
+      .adoption-boundary { margin-top: 3px; font-size: 9px; line-height: 1.45; }
       .adoption-panel .source-link { white-space: nowrap; }
       .patent-panel { padding: 12px 14px 13px; border-radius: 16px; }
       .panel-heading { margin-bottom: 8px; }
@@ -786,7 +951,7 @@
       .metrics { gap: 8px; }
       .metric { padding: 9px 10px; }
       .metric-number { font-size: 32px; }
-      .metric-label { margin-top: 5px; font-size: 9.5px; line-height: 1.35; }
+      .metric-label { margin-top: 5px; font-size: 10.5px; line-height: 1.4; }
       .patent-title { margin-top: 4px; font-size: 17.5px; line-height: 1.35; }
       .patent-id { margin-top: 6px; padding: 3px 8px; font-size: 10.5px; }
       .patent-example { margin-top: 8px; font-size: 10.5px; line-height: 1.5; }
@@ -796,6 +961,14 @@
       .section { padding-bottom: 76px; }
       .section-heading { margin-bottom: 28px; }
       .case-card { padding: 22px 20px; }
+      .experience-card { padding: 22px 20px; }
+      .experience-card h3 { font-size: 22px; }
+      .value-contact { padding: 26px 22px; }
+      .value-contact h3 { font-size: 25px; }
+      .value-contact-action { min-width: 0; }
+      .email-button { width: 100%; min-width: 0; }
+      .technical-overview { padding: 28px 20px; }
+      .technical-tagline { font-size: 25px; }
       .more-proof { align-items: flex-start; flex-direction: column; }
       .more-proof-links { flex-direction: column; gap: 8px; }
       .principles { padding: 28px 20px; }
@@ -819,24 +992,17 @@
   <div class="hero-wrap">
     <header class="hero" aria-labelledby="page-title">
       <div class="hero-topline">
-        <p class="hero-kicker">PUBLIC EVIDENCE / AI TECHNICAL BOUNDARY AUDIT &amp; REPAIR</p>
-        <ul class="brand-strip" aria-label="公開実装先">
-          <li>NIST</li>
-          <li>Microsoft</li>
-          <li>Apple</li>
-          <li>Ethereum</li>
-          <li>Solana</li>
-          <li>Sony</li>
-        </ul>
+        <p class="hero-kicker">CUSTOMER EXPERIENCE / PUBLIC EVIDENCE / AI IMPLEMENTATION</p>
       </div>
 
       <div class="hero-grid">
         <div class="hero-identity">
-          <div class="identity-label">AIシステムの技術的境界監査・修理</div>
-          <h1 id="page-title">Nagata<br>Shinichi</h1>
-          <p class="role">AIシステムの技術的境界監査・修理</p>
-          <p class="tagline">AIが<strong>動いたように見える</strong>のに、正しく完了していない境界を検証・修理します。</p>
-          <p class="hero-summary">未知のコードベースへ入り、エラー、二重実行、再試行、中断・再開、状態不整合などの異常系を第三者として検証します。必要に応じて最小修正とテストまで行い、公開リポジトリのメンテナー審査を通った証拠と、未確認範囲を分離した再開可能な記録を残します。</p>
+          <h1 id="page-title">御社がお客様から選ばれている理由を、複利化しませんか。</h1>
+          <p class="hero-value-summary">お客様が喜んだ対応や、交わした約束を次の仕事へ。担当者が替わっても、御社の強みが積み上がる仕組みをつくります。</p>
+          <div class="identity-byline" aria-label="運営者">
+            <span class="person-name">Nagata Shinichi</span>
+            <span class="role">AIシステムの技術実装・検証</span>
+          </div>
         </div>
 
         <div class="hero-evidence" aria-label="主要な公開証拠">
@@ -857,33 +1023,92 @@
             </div>
           </section>
 
+          <ul class="brand-strip" aria-label="公開実装先">
+            <li>NIST</li>
+            <li>Microsoft</li>
+            <li>Apple</li>
+            <li>Ethereum</li>
+            <li>Solana</li>
+            <li>Sony</li>
+          </ul>
+
           <section class="adoption-panel" aria-label="OpenClaw credit付き採用">
             <p class="adoption-copy"><strong>OpenClaw</strong> — 提出した修正案を<span class="adoption-phrase">本家側が置換PRへ引き継ぎ、</span><span class="adoption-phrase">共同著者credit付きで採用。</span><span class="adoption-boundary">Credited upstream adoption · 31 / 27とは別枠</span></p>
             <a class="source-link" href="https://github.com/openclaw/openclaw/pull/129927">採用原本 ↗</a>
           </section>
+        </div>
+      </div>
 
+      <div class="hero-foot">
+        <span>顧客体験の改善と、公開原本で確認できる技術実績を一つの入口にしています。</span>
+        <a href="#customer-experience">具体例を見る ↓</a>
+      </div>
+    </header>
+  </div>
+
+  <main id="main-content">
+    <section class="section" id="customer-experience" aria-labelledby="customer-experience-title">
+      <div class="section-heading">
+        <p class="section-number">01 / Customer experience</p>
+        <div>
+          <h2 id="customer-experience-title">お客様との次のやり取りに、これまでの経験を活かす</h2>
+          <p class="section-lead">以下の「」は目指す顧客体験の例であり、実際のお客様の推薦・証言ではありません。</p>
+        </div>
+      </div>
+
+      <div class="experience-grid">
+        <article class="experience-card">
+          <h3>「前の話を覚えてくれている」</h3>
+          <p>要望や約束を残し、次の連絡前に取り出す。</p>
+        </article>
+        <article class="experience-card">
+          <h3>「担当が替わっても話が通じる」</h3>
+          <p>これまでの経緯と、大切にしていることを引き継ぐ。</p>
+        </article>
+        <article class="experience-card">
+          <h3>「自分に合う提案をしてくれる」</h3>
+          <p>過去の反応を踏まえ、提案や文面を改善する。</p>
+        </article>
+      </div>
+
+      <p class="experience-return">喜ばれた対応や、うまくいかなかった理由を次の仕事へ戻し、日々の経験から改善を重ねます。</p>
+      <p class="development-note">開発・検証中：顧客ごとの会話や約束を記録し、次の行動へつなぐ部分は一部確認済みです。自然文の自動整理、属性に合う文面選択、承認範囲内の自動送信、利用画面は、現在も検証・接続中です。</p>
+
+      <div class="value-contact" aria-labelledby="value-contact-title">
+        <div>
+          <h3 id="value-contact-title">御社がお客様から喜ばれていること、またはもっと良くしたい対応を、一つ教えてください。</h3>
+          <p class="value-contact-copy">技術的な説明は不要です。最初に取り組む一つと、その進め方をこちらで整理します。</p>
+          <p class="value-contact-note">最初に取り組む一つと進め方の整理は、メールで一度無料でお返しします。個別の実装費用は、ご希望がある場合に対象範囲を確認してお見積りします。</p>
+        </div>
+        <div class="value-contact-action">
+          <a class="email-button" href="mailto:siriusa.paper@gmail.com">メールで相談する</a>
+          <span class="email-address">siriusa.paper@gmail.com</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="technical-overview-title">
+      <div class="technical-overview">
+        <div>
+          <p class="section-number">02 / Technical implementation</p>
+          <h2 class="technical-tagline" id="technical-overview-title">AIが<strong>動いたように見える</strong>のに、正しく完了していない境界を検証・修理します。</h2>
+          <p class="technical-summary">未知のコードベースへ入り、エラー、二重実行、再試行、中断・再開、状態不整合などの異常系を第三者として検証します。必要に応じて最小修正とテストまで行い、公開リポジトリのメンテナー審査を通った証拠と、未確認範囲を分離した再開可能な記録を残します。</p>
+        </div>
+        <div class="technical-evidence">
           <section class="patent-panel" aria-labelledby="patent-title">
             <h2>独自の安全設計</h2>
             <p class="patent-title" id="patent-title">本人が承認しても、危険な送金を止められる。</p>
             <span class="patent-id">JP2025-248070</span>
             <p class="patent-example">本人が詐欺などで危険な送金を承認してしまった場合でも、家族など正当な第三者の確認で、不可逆な実行前に停止できる仕組みを特許庁へ出願済み。</p>
           </section>
-
           <p class="safety-line">本人確認済みの利用者であっても、危険な判断をする可能性まで含めて、AIを止める境界を設計します。</p>
         </div>
       </div>
+    </section>
 
-      <div class="hero-foot">
-        <span>公開原本から、変更内容と取り込み結果を確認できます。</span>
-        <a href="#implementation">実装例を見る ↓</a>
-      </div>
-    </header>
-  </div>
-
-  <main id="main-content">
     <section class="section" id="implementation" aria-labelledby="implementation-title">
       <div class="section-heading">
-        <p class="section-number">01 / Public implementation</p>
+        <p class="section-number">03 / Public implementation</p>
         <div>
           <h2 id="implementation-title">実際に、何を直してきたか。</h2>
           <p class="section-lead">専門用語を知らなくても、問題・修正・意味が分かるように、代表的な3件だけを紹介します。各リンクから公式プロジェクトの原本PRへ移動できます。</p>
@@ -925,17 +1150,17 @@
         </div>
       </div>
 
-      <details class="adoption-detail">
-        <summary>OpenClawのcredit付き採用経路を確認する</summary>
+      <div class="adoption-detail">
+        <h3>OpenClawのcredit付き採用経路</h3>
         <p><a href="https://github.com/openclaw/openclaw/pull/125722">提出PR #125722</a>は未mergeのままclose。本家側の<a href="https://github.com/openclaw/openclaw/pull/129927">置換PR #129927</a>がmainへmergeされ、<a href="https://github.com/openclaw/openclaw/commit/1f7101844b53c9f8be709b2b462f2bca4ca66fcc">採用commit</a>にはshin4141の共同著者creditが記録されています。これはdirect upstream merge 31件には含めていません。</p>
-      </details>
+      </div>
     </section>
 
     <section class="section" aria-labelledby="principles-title">
       <div class="principles">
         <div class="principles-grid">
           <div>
-            <p class="section-number">02 / Technical principles</p>
+            <p class="section-number">04 / Technical principles</p>
             <h2 id="principles-title">技術上の<br>考え方</h2>
             <p class="principles-core">壊れにくさ、確認、停止、責任の境界まで技術として扱います。</p>
           </div>
@@ -952,7 +1177,7 @@
     <section class="section" aria-label="相談と連絡先">
       <div class="contact-layout">
         <div class="consult-panel">
-          <p class="section-number">03 / Scope</p>
+          <p class="section-number">05 / Scope</p>
           <h2>相談できること</h2>
           <ul class="consult-list">
             <li>AIや自動化でできるか分からない</li>
@@ -964,7 +1189,7 @@
         </div>
 
         <aside class="contact-panel" aria-labelledby="contact-title">
-          <p class="section-number" style="color:#91a59d">04 / Verification &amp; contact</p>
+          <p class="section-number" style="color:#91a59d">06 / Verification &amp; contact</p>
           <h2 id="contact-title">検証・連絡先</h2>
           <p class="contact-intro">公開実績は原本から確認できます。ご相談は概要2〜3行からで構いません。</p>
           <div class="contact-links">
