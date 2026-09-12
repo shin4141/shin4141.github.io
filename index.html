@@ -979,7 +979,7 @@
       .hero-evidence { gap: 9px; }
       .proof-panel { padding: 13px 14px 12px; border-radius: 16px; }
       .adoption-panel {
-        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-columns: minmax(0, 1fr);
         gap: 7px 10px;
         padding: 8px 12px;
         border-radius: 14px;
@@ -987,7 +987,7 @@
       .adoption-copy { font-size: 11px; line-height: 1.5; }
       .adoption-phrase { display: block; }
       .adoption-boundary { margin-top: 3px; font-size: 9px; line-height: 1.45; }
-      .adoption-panel .source-link { white-space: nowrap; }
+      .adoption-panel .source-link { justify-self: start; white-space: nowrap; }
       .patent-panel { padding: 12px 14px 13px; border-radius: 16px; }
       .panel-heading { margin-bottom: 8px; }
       .panel-heading h2,
@@ -1079,9 +1079,9 @@
             </div>
           </section>
 
-          <section class="adoption-panel" aria-label="OpenClaw credit付き採用">
-            <p class="adoption-copy"><strong>OpenClaw</strong> — 提出した修正案を<span class="adoption-phrase">本家側が置換PRへ引き継ぎ、</span><span class="adoption-phrase">共同著者credit付きで採用。</span><span class="adoption-boundary">Credited upstream adoption · 31 / 27とは別枠</span></p>
-            <a class="source-link" href="https://github.com/openclaw/openclaw/pull/129927">採用原本 ↗</a>
+          <section class="adoption-panel" aria-label="macOS Security Compliance Projectの公式発表">
+            <p class="adoption-copy"><strong>macOS Security Compliance Project</strong> — <span class="adoption-phrase">修正が採用され、</span><span class="adoption-phrase">公式発表で新規貢献者として紹介されました。</span></p>
+            <a class="source-link" href="https://github.com/usnistgov/macos_security/discussions/796">公式発表で貢献者掲載 ↗</a>
           </section>
         </div>
       </div>
