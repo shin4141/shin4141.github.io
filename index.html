@@ -422,7 +422,7 @@
 
     .case-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 18px;
     }
 
@@ -906,7 +906,7 @@
         grid-template-columns: minmax(0, 1fr) minmax(390px, 0.9fr);
         gap: 40px;
       }
-      .case-grid { grid-template-columns: 1fr; }
+      .case-grid { grid-template-columns: repeat(2, 1fr); }
       .experience-grid { grid-template-columns: 1fr; }
       .case-card { min-height: 0; }
       .section-heading { grid-template-columns: 130px minmax(0, 1fr); }
@@ -1006,6 +1006,7 @@
       .section { padding-bottom: 76px; }
       .section-heading { margin-bottom: 28px; }
       .case-card { padding: 22px 20px; }
+      .case-grid { grid-template-columns: 1fr; }
       .experience-card { padding: 22px 20px; }
       .experience-card h3 { font-size: 22px; }
       .trust-risk-panel { padding: 26px 22px; }
@@ -1042,6 +1043,7 @@
       <div class="hero-topline">
         <p class="hero-kicker">AI IMPLEMENTATION / PUBLIC EVIDENCE</p>
         <ul class="brand-strip" aria-label="公開実装先">
+          <li>OpenSSL</li>
           <li>NIST</li>
           <li>Microsoft</li>
           <li>Apple</li>
@@ -1065,23 +1067,23 @@
           <section class="proof-panel" aria-labelledby="proof-title">
             <div class="panel-heading">
               <h2 id="proof-title">公開実装</h2>
-              <a class="source-link" href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md">31件の明細 ↗</a>
+              <a class="source-link" href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md">32件の明細 ↗</a>
             </div>
             <div class="metrics">
               <div class="metric">
-                <span class="metric-number">27</span>
+                <span class="metric-number">28</span>
                 <span class="metric-label">独立した公式OSS<br>プロジェクト</span>
               </div>
               <div class="metric">
-                <span class="metric-number">31</span>
+                <span class="metric-number">32</span>
                 <span class="metric-label">プロジェクト本体へ<br>取り込まれた変更</span>
               </div>
             </div>
           </section>
 
-          <section class="adoption-panel" aria-label="macOS Security Compliance Projectの公式発表">
-            <p class="adoption-copy"><strong>macOS Security Compliance Project</strong> — <span class="adoption-phrase">修正が採用され、</span><span class="adoption-phrase">公式発表で新規貢献者として紹介されました。</span></p>
-            <a class="source-link" href="https://github.com/usnistgov/macos_security/discussions/796">公式発表で貢献者掲載 ↗</a>
+          <section class="adoption-panel" aria-label="OpenSSLのmaster採用">
+            <p class="adoption-copy"><strong>OpenSSL</strong> — <span class="adoption-phrase">乱数seed source構築の再帰で、</span><span class="adoption-phrase">スタックを使い切る問題を修正。</span></p>
+            <a class="source-link" href="https://github.com/openssl/openssl/commit/aeeca5a9e07166183fe323f336c9177a9b524c78">master採用commit ↗</a>
           </section>
         </div>
       </div>
@@ -1125,7 +1127,7 @@
         <p>お客様が喜んだ対応や、交わした約束を次の仕事へ。その積み重ねが、御社の強みを育てます。</p>
         <p>一方で、AIが賢くなっても、間違えたときの影響まで自動で小さくなるわけではありません。顧客情報の更新とメール送信がつながっていれば、一つの誤りが、その先のお客様への対応にも広がることがあります。</p>
         <p>だから、AIに任せる範囲、人が確認する場面、異常があれば止める場所を設計します。問題が起きたときの記録も、次の改善へ戻します。</p>
-        <p>私は、27の公開OSSリポジトリで31件の修正が採用された実装・検証の経験を、この仕組みづくりに活かします。</p>
+        <p>私は、28の公開OSSリポジトリで32件の修正が直接mergeされた実装・検証の経験を、この仕組みづくりに活かします。</p>
         <p>日々の仕事を楽にし、その経験を次へ残す。御社がお客様から選ばれる理由を、長く育てていくためのご提案です。</p>
       </div>
 
@@ -1147,32 +1149,36 @@
         <p class="section-number">02 / Public implementation</p>
         <div>
           <h2 id="implementation-title">実際に、何を直してきたか。</h2>
-          <p class="section-lead">専門用語を知らなくても、問題・修正・意味が分かるように、代表的な3件だけを紹介します。各リンクから公式プロジェクトの原本PRへ移動できます。</p>
+          <p class="section-lead">専門用語を知らなくても、問題・修正・採用結果が分かるように、代表的な4件だけを紹介します。</p>
         </div>
       </div>
 
       <div class="case-grid">
         <article class="case-card">
-          <div class="case-meta"><span>Case 01</span><span class="case-company">NIST（米国国立標準技術研究所）</span></div>
+          <div class="case-meta"><span>Case 01</span><span class="case-company">OpenSSL</span></div>
+          <h3>OpenSSL RAND</h3>
+          <p class="case-copy">seed source構築が再帰してスタックを使い切る問題を、通常のRAND errorで停止する修正へ。PRはClosedのまま、別commitとしてmasterへ採用されました。</p>
+          <a class="source-link-light" href="https://github.com/openssl/openssl/commit/aeeca5a9e07166183fe323f336c9177a9b524c78">master採用commitを確認する ↗</a>
+        </article>
+
+        <article class="case-card">
+          <div class="case-meta"><span>Case 02</span><span class="case-company">NIST（米国国立標準技術研究所）</span></div>
           <h3>macOS Security Compliance Project</h3>
-          <p class="case-copy"><strong>何を直したか</strong>除外指定された規則がJSON manifestへ混入する生成経路を修正し、既存の構成プロファイル除外動作は維持しました。</p>
-          <p class="case-copy"><strong>なぜ意味があるか</strong>人が指定した除外方針と、機械が読むセキュリティ準拠情報の不一致を防ぎます。</p>
+          <p class="case-copy">除外指定した規則がJSON manifestへ混入する経路を修正。PRがmergeされ、公式release notesで新規contributorとして掲載されました。</p>
           <a class="source-link-light" href="https://github.com/usnistgov/macos_security/pull/775">原本PRを確認する ↗</a>
         </article>
 
         <article class="case-card">
-          <div class="case-meta"><span>Case 02</span><span class="case-company">Microsoft</span></div>
+          <div class="case-meta"><span>Case 03</span><span class="case-company">Microsoft</span></div>
           <h3>Terraform Provider for Power Platform</h3>
-          <p class="case-copy"><strong>何を直したか</strong>HTTP 409を要求済み状態と処理拒否に分離し、remote stateを再確認して、未成立なら既存上限内で再試行するよう修正しました。</p>
-          <p class="case-copy"><strong>なぜ意味があるか</strong>要求した状態を確認せず「成功」と扱う境界を防ぎ、未収束なら明示的に失敗を返します。</p>
+          <p class="case-copy">HTTP 409を成功と誤認せず、remote stateを再確認して未成立ならbounded retryする修正。レビュー承認後にmergeされました。</p>
           <a class="source-link-light" href="https://github.com/microsoft/terraform-provider-power-platform/pull/1254">原本PRを確認する ↗</a>
         </article>
 
         <article class="case-card">
-          <div class="case-meta"><span>Case 03</span><span class="case-company">Apple</span></div>
+          <div class="case-meta"><span>Case 04</span><span class="case-company">Apple</span></div>
           <h3>Swift OpenAPI Generator</h3>
-          <p class="case-copy"><strong>何を直したか</strong>API定義の名前が衝突すると突然停止する処理を、原因と回避方法が分かるエラーへ変更しました。</p>
-          <p class="case-copy"><strong>なぜ意味があるか</strong>利用者が、理由の分からない停止から復帰できます。</p>
+          <p class="case-copy">API定義の名前衝突による突然停止を、原因と回避方法が分かる決定的エラーへ変更。レビュー対応後にmergeされました。</p>
           <a class="source-link-light" href="https://github.com/apple/swift-openapi-generator/pull/939">原本PRを確認する ↗</a>
         </article>
       </div>
@@ -1187,8 +1193,15 @@
       </div>
 
       <div class="adoption-detail">
+        <h3>採用形態と集計</h3>
+        <p><a href="https://github.com/openssl/openssl/pull/32685">OpenSSL PR #32685</a>はClosedのままです。作者<code>shin4141</code>と<code>Merged-from #32685</code>を記録した<a href="https://github.com/openssl/openssl/commit/aeeca5a9e07166183fe323f336c9177a9b524c78">master採用commit</a>を別の採用経路として表示し、<a href="https://github.com/openssl/openssl/commit/b2d073565875664d8baee1493e9a07eca922687d">OpenSSL 4.1への同一修正</a>は別貢献として数えていません。</p>
+        <p>32件・28リポジトリはGitHubで直接mergeされたPRだけの集計です。新たにmergeを確認したPowerGridModel #1547を含み、OpenSSLの別採用経路は含みません。OSC / Open OnDemand #5725、Adyen #1760、Dynawo / DyCoV #385、PowerGridModel #1547の証拠とレビュー経緯は<a href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md">全実績の詳細一覧</a>に保持しています。</p>
+        <p>NIST #775は公式<a href="https://github.com/usnistgov/macos_security/releases/tag/release_27.0">mSCP 2.0 / Release 27.0 notes</a>にも掲載されています。</p>
+      </div>
+
+      <div class="adoption-detail">
         <h3>OpenClawのcredit付き採用経路</h3>
-        <p><a href="https://github.com/openclaw/openclaw/pull/125722">提出PR #125722</a>は未mergeのままclose。本家側の<a href="https://github.com/openclaw/openclaw/pull/129927">置換PR #129927</a>がmainへmergeされ、<a href="https://github.com/openclaw/openclaw/commit/1f7101844b53c9f8be709b2b462f2bca4ca66fcc">採用commit</a>にはshin4141の共同著者creditが記録されています。これはdirect upstream merge 31件には含めていません。</p>
+        <p><a href="https://github.com/openclaw/openclaw/pull/125722">提出PR #125722</a>は未mergeのままclose。本家側の<a href="https://github.com/openclaw/openclaw/pull/129927">置換PR #129927</a>がmainへmergeされ、<a href="https://github.com/openclaw/openclaw/commit/1f7101844b53c9f8be709b2b462f2bca4ca66fcc">採用commit</a>にはshin4141の共同著者creditが記録されています。これはdirect upstream merge 32件には含めていません。</p>
       </div>
     </section>
 
