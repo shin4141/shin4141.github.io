@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="1つの認証情報が悪用されたとき、何件の機微データまで到達できるか。認証後の取得量・時間・承認・送信先を設計し、一度の事故で失える最大量を制限します。">
+  <meta property="og:title" content="Sensitive Data Egress Gate｜最大被害量を設計する">
+  <meta property="og:description" content="認証を守るだけでなく、破られた後の最大被害量を設計する。取得量・時間・承認・送信先から、全量到達の条件を整理します。">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+  <title>Sensitive Data Egress Gate｜最大被害量を設計する</title>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-en="Skip to content">本文へ移動</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#main" aria-label="Sensitive Data Egress Gate">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Sensitive Data<br><strong>Egress Gate</strong></span>
+      </a>
+      <nav class="main-nav" aria-label="ページ内ナビゲーション" data-en-aria-label="On this page">
+        <a href="#self-check" data-en="Self-check">5段階チェック</a>
+        <a href="#design" data-en="Design">設計と進め方</a>
+        <a href="#proof" data-en="Public work">公開実績</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="表示言語" data-en-aria-label="Page language" hidden>
+        <button type="button" data-language="ja" lang="ja" aria-pressed="true">日本語</button>
+        <button type="button" data-language="en" lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-rule" aria-hidden="true"></span><span data-en="MAXIMUM LOSS DESIGN">最大被害量の設計 / Maximum Loss Design</span></p>
+        <h1 id="hero-title"><span><span data-en="If one administrator credential ">もし管理者アカウントが</span><span class="keep-phrase" data-en="were compromised,">1つ破られたら、</span></span><span class="hero-question"><span data-en="how much sensitive data ">何件の個人情報まで</span><span class="keep-phrase" data-en="could it reach?">届きますか？</span></span></h1>
+        <div class="volume-question" role="group" aria-label="100件、1万件、それとも全件？" data-en-aria-label="100 records, 10,000, or effectively all of them?">
+          <div><strong>100</strong><span data-en="records?">件ですか。</span></div>
+          <div><strong>10,000</strong><span data-en="records?">件ですか。</span></div>
+          <div class="all-volume"><strong>ALL</strong><span data-en="Effectively all?">それとも全件ですか。</span></div>
+        </div>
+        <p class="hero-value" data-en="Protect credentials. Design the maximum loss if access is abused.">認証を守るだけでなく、破られた後の最大被害量を設計する。</p>
+        <p class="hero-description" data-en="Sensitive Data Egress Gate designs limits on how much sensitive data one incident can expose—even after intrusion, credential misuse, insider abuse, or an operational mistake.">Sensitive Data Egress Gateは、侵入・認証情報悪用・内部不正・誤操作の後でも、一度の事故で失える最大量に上限があるかを設計します。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#contact"><span data-en="Map full-data access conditions">全量到達の条件を整理する</span><span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#self-check"><span data-en="Find your current level">自社の段階を確認する</span><span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+
+      <figure class="gate-figure">
+        <figcaption><span class="figure-index">01 / GATE DESIGN</span><strong data-en="A boundary beyond authentication.">認証の先に、もう一つ境界を。</strong></figcaption>
+        <div class="diagram-source"><span class="node-icon" aria-hidden="true">01</span><div><strong data-en="One credential">1つの認証情報</strong><span data-en="Administrator / API key">管理者アカウント / APIキー</span></div></div>
+        <div class="diagram-connector" aria-hidden="true"><span>↓</span></div>
+        <div class="gate-node"><span class="gate-symbol" aria-hidden="true">│ → │</span><div><strong>Sensitive Data Egress Gate</strong><span data-en="Volume · Time · Approval · Destination">量 · 時間 · 承認 · 送信先</span></div></div>
+        <div class="diagram-connector" aria-hidden="true"><span>↓</span></div>
+        <ul class="release-routes">
+          <li><span class="route-volume">100</span><div><strong data-en="Per request">一度の取得量</strong><span data-en="Within a defined access scope">許可された範囲内で</span></div><span class="route-mark" aria-hidden="true">→</span></li>
+          <li><span class="route-volume">10,000</span><div><strong data-en="Over a time window">一定時間内の累積量</strong><span data-en="Repeated requests count, too">繰り返し取得も合算</span></div><span class="route-mark" aria-hidden="true">→</span></li>
+          <li class="full-route"><span class="route-volume">ALL</span><div><strong data-en="Separate release conditions">全量には、別の条件</strong><span data-en="Additional approvals + delay + dedicated route">複数承認 + 待機 + 専用経路</span></div><span class="route-mark" aria-hidden="true">→</span></li>
+        </ul>
+        <p class="diagram-note" data-en="Illustrative volumes, not recommended thresholds. The conditions are designed around your operations.">数量は設計イメージです。実際の上限・承認条件は、各社の業務に合わせて定めます。</p>
+      </figure>
+    </section>
+
+    <div class="scope-strip">
+      <div class="container"><span class="scope-label" data-en="THE DATA AT STAKE">守る対象</span><p data-en="Personal information / ID documents / Medical records / Payroll / Bank details / KYC & KYB / Customer databases">個人情報 / 本人確認資料 / 医療情報 / 給与・銀行口座 / KYC・KYB / 顧客DB</p></div>
+    </div>
+
+    <section class="section container analogy-section" aria-labelledby="analogy-title">
+      <div class="section-heading">
+        <p class="eyebrow">02 / THE IDEA</p>
+        <h2 id="analogy-title" data-en="An ATM puts a boundary beyond the PIN.">ATMは、暗証番号だけで全額を引き出せない。</h2>
+      </div>
+      <div class="analogy-grid">
+        <div class="analogy-copy">
+          <p data-en="Knowing the PIN does not mean an ATM will let you withdraw the entire account balance at once. Sensitive data can have a similar boundary: a designed limit on how much one incident can expose.">ATMでは、暗証番号を知っていても口座残高の全額を一度に引き出せない。機微なデータにも同じように、一度に失える最大量を設計できます。</p>
+          <p class="keyline" data-en="This goes beyond rate limiting.">これは単なるレート制限の話ではありません。</p>
+          <p class="muted" data-en="Volume, time, decision-makers, and destinations work together to define the conditions for release.">量・時間・判断する人・送信先を組み合わせて、データを外へ出す条件を定めます。</p>
+        </div>
+        <div class="design-variables">
+          <div><span class="variable-number">01</span><strong data-en="Per-request volume">一度の取得量</strong><span data-en="How many at once?">一度に何件までか</span></div>
+          <div><span class="variable-number">02</span><strong data-en="Cumulative volume">累積取得量</strong><span data-en="How many in total?">繰り返すと何件までか</span></div>
+          <div><span class="variable-number">03</span><strong data-en="Time window">時間枠</strong><span data-en="Over what period?">どの期間で数えるか</span></div>
+          <div><span class="variable-number">04</span><strong data-en="Additional approval">追加承認</strong><span data-en="Who else must agree?">誰の判断を加えるか</span></div>
+          <div><span class="variable-number">05</span><strong data-en="Destination">送信先</strong><span data-en="Where may it go?">どこへ出せるか</span></div>
+          <div><span class="variable-number">06</span><strong data-en="Privilege-change delay">権限変更後の待機</strong><span data-en="When may new rights be used?">新しい権限をいつ使えるか</span></div>
+          <div class="emergency-variable"><span class="variable-number">07</span><strong data-en="Emergency path">緊急時の特別経路</strong><span data-en="What happens under exceptional conditions?">例外時に、誰が何を許可するか</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="check-section" id="self-check" aria-labelledby="check-title">
+      <div class="container section">
+        <div class="section-heading check-heading">
+          <div><p class="eyebrow">03 / FIVE-LEVEL SELF-CHECK</p><h2 id="check-title" data-en="Where does your system draw the line?">あなたのシステムは、どの段階ですか？</h2></div>
+          <p data-en="Start with one question: what could a single abused credential actually reach?">1つの認証情報が悪用されたとき、実際にどこまで取得できるかを考えてみてください。</p>
+        </div>
+        <fieldset class="level-options">
+          <legend data-en="Choose the description closest to your current extraction path.">現在の取得経路に最も近い説明を選んでください。</legend>
+          <label class="level-card">
+            <span class="level-number"><span>LEVEL</span><strong>01</strong></span>
+            <span class="level-content"><strong data-en="Authentication grants full or near-full access">認証できれば全量取得可能</strong><span data-en="A successful login is enough to reach all, or effectively all, sensitive records.">ログインできれば、全件または実質全件へ届く。</span></span>
+            <span class="level-boundary" data-en="Authentication">認証</span>
+            <input type="radio" name="egress-level" value="1">
+          </label>
+          <label class="level-card">
+            <span class="level-number"><span>LEVEL</span><strong>02</strong></span>
+            <span class="level-content"><strong data-en="Per-request volume is limited">1回の取得量のみ制限</strong><span data-en="Each request has a cap, but repeated requests can still accumulate.">一度の取得には上限があるが、繰り返し取得は積み上がる。</span></span>
+            <span class="level-boundary" data-en="+ Volume">+ 量</span>
+            <input type="radio" name="egress-level" value="2">
+          </label>
+          <label class="level-card">
+            <span class="level-number"><span>LEVEL</span><strong>03</strong></span>
+            <span class="level-content"><strong data-en="Cumulative extraction is limited over time">一定時間内の累積取得量も制限</strong><span data-en="Repeated extraction is counted against a total limit over a defined time window.">一定の時間枠で、複数回の取得量も合算して制限する。</span></span>
+            <span class="level-boundary" data-en="+ Time">+ 時間</span>
+            <input type="radio" name="egress-level" value="3">
+          </label>
+          <label class="level-card">
+            <span class="level-number"><span>LEVEL</span><strong>04</strong></span>
+            <span class="level-content"><strong data-en="Large exports require additional approval, destination controls, or delay">大量取得に別担当者承認・送信先制限・待機時間あり</strong><span data-en="High-volume release has extra conditions beyond ordinary access.">通常の取得とは別に、大量Releaseの条件を定めている。</span></span>
+            <span class="level-boundary" data-en="+ Release conditions">+ Release条件</span>
+            <input type="radio" name="egress-level" value="4">
+          </label>
+          <label class="level-card">
+            <span class="level-number"><span>LEVEL</span><strong>05</strong></span>
+            <span class="level-content"><strong data-en="Full extraction is unavailable through the normal path">全量取得は通常経路では不可</strong><span data-en="Full extraction requires organization-specific multi-party approval, time constraints, and a dedicated route.">会社ごとに定めた複数承認・時間制約・専用経路が必要。</span></span>
+            <span class="level-boundary" data-en="+ Dedicated route">+ 専用経路</span>
+            <input type="radio" name="egress-level" value="5">
+          </label>
+        </fieldset>
+        <aside class="check-result" id="check-result" aria-live="polite" aria-atomic="true" hidden>
+          <div><p class="eyebrow" id="result-level"></p><h3 id="result-title"></h3><p id="result-question"></p></div>
+          <a class="text-link" href="#contact"><span data-en="Discuss these conditions">この条件を相談する</span><span aria-hidden="true">↗</span></a>
+        </aside>
+        <p class="check-note"><strong data-en="A map of conditions, not a score.">これは点数ではなく、条件の見取り図です。</strong><span data-en="Level 5 is not the right answer for every organization. The appropriate structure depends on your operations. Selection alone does not verify your actual controls.">Level 5が、すべての会社の正解ではありません。業務要件に応じて適切な構造は異なります。選択だけで実装の有効性が確認されるものではありません。</span></p>
+        <p class="muted uncertainty-note" data-en="Not sure? Start by documenting the conditions under which full extraction is currently possible.">分からない場合は、今どの条件なら全量を取得できるかを整理するところから始められます。</p>
+        <noscript><p class="muted">JavaScriptが無効でも、5段階の説明と相談先はご覧いただけます。</p></noscript>
+      </div>
+    </section>
+
+    <section class="section container" aria-labelledby="before-after-title">
+      <div class="section-heading"><p class="eyebrow">04 / BEFORE → AFTER</p><h2 id="before-after-title" data-en="Design the path before data leaves.">データが出るまでの経路を、設計する。</h2><p data-en="Leave time and room to intervene before a high-impact release becomes irreversible.">高影響のReleaseほど、不可逆になる前に時間と介入の余地を残します。</p></div>
+      <div class="flow-comparison">
+        <figure class="flow-before"><figcaption><span>BEFORE</span><strong data-en="One login. All the data.">ログインの先に、全量。</strong></figcaption>
+          <ol class="before-steps"><li><span data-en="Login">ログイン</span></li><li><span data-en="Admin privilege">管理者権限</span></li><li class="export-all"><span>Export ALL</span><span class="all-blocks" aria-hidden="true">▦ ▦ ▦</span></li></ol>
+        </figure>
+        <figure class="flow-after"><figcaption><span>AFTER</span><strong data-en="Release through defined gates.">条件を通って、Releaseへ。</strong></figcaption>
+          <ol class="after-steps"><li><span class="flow-dot" aria-hidden="true"></span><strong data-en="Login">ログイン</strong><span data-en="Who is requesting access?">誰が取得するか</span></li><li><span class="flow-dot" aria-hidden="true"></span><strong data-en="Access scope">アクセス範囲</strong><span data-en="Which data may be reached?">どのデータへ届くか</span></li><li><span class="flow-dot" aria-hidden="true"></span><strong>Volume Gate</strong><span data-en="Per-request + cumulative volume">一度の量 + 累積量</span></li><li><span class="flow-dot" aria-hidden="true"></span><strong>Time Gate</strong><span data-en="Time windows + delays">時間枠 + 待機時間</span></li><li><span class="flow-dot" aria-hidden="true"></span><strong>Approval Gate</strong><span data-en="Organization-specific approval">業務に応じた複数承認</span></li><li><span class="flow-dot" aria-hidden="true"></span><strong>Destination Gate</strong><span data-en="Approved destinations + routes">許可された送信先 + 経路</span></li><li class="release-step"><span class="flow-dot" aria-hidden="true"></span><strong>Release</strong><span data-en="Only within the defined conditions">定めた条件の範囲で</span></li></ol>
+        </figure>
+      </div>
+      <div class="intervention-principles"><span data-en="Time before release">即時にしない</span><span data-en="More than one decision-maker">単独にしない</span><span data-en="Room to intervene">介入の余地を残す</span></div>
+    </section>
+
+    <section class="section container difference-section" aria-labelledby="difference-title">
+      <div class="section-heading"><p class="eyebrow">05 / THE UNIT OF DESIGN</p><h2 id="difference-title" data-en="Before adding controls, define what may leave.">機能を足す前に、何をどこまで許すかを設計します。</h2></div>
+      <div class="difference-grid">
+        <div class="feature-request"><h3 data-en="A request for individual features">一般的な実装依頼</h3><ul><li data-en="Add MFA">MFAを追加</li><li data-en="Add RBAC">RBACを追加</li><li data-en="Add rate limits">Rate Limitを追加</li><li data-en="Add audit logs">Audit Logを追加</li><li data-en="Add an approval flow">Approval Flowを追加</li></ul></div>
+        <div class="cross-cutting-design"><h3>Sensitive Data Egress Gate</h3><p class="design-statement" data-en="Who may release what, how much, under which conditions, to where, and how quickly?">誰が、どの条件で、どれだけ、どこへ、どの速度でReleaseできるか。</p><p data-en="Design these conditions together, then choose the controls that implement them.">この条件を横断して設計し、その設計を実現する機能を選びます。</p><span class="design-tag" data-en="Conditions → Controls → Verification">条件設計 → 実装 → 検証</span></div>
+      </div>
+    </section>
+
+    <section class="section container" id="design" aria-labelledby="engagement-title">
+      <div class="section-heading"><p class="eyebrow">06 / HOW WE WORK</p><h2 id="engagement-title" data-en="Design. Review. Verify.">設計から、実装後の確認まで。</h2><p data-en="Start at the point that fits your team and the information you can share.">社内の状況と、開示できる範囲に合わせて進めます。</p></div>
+      <div class="engagement-grid">
+        <article class="engagement-card"><span class="card-index">01 / DESIGN</span><h3 data-en="A design for your operations">オーダーメード設計書</h3><p data-en="For organizations that prefer to keep code and internal systems in-house. Define release conditions from your business requirements; your own engineers can implement them.">コードや内部構成を外部へ出したくない企業向け。業務要件からRelease条件を設計し、実装は顧客側のエンジニアで進められます。</p><ul><li data-en="Per-request and cumulative limits">取得上限・累積上限</li><li data-en="Time constraints and approval roles">時間・承認人数と役割</li><li data-en="Destinations and emergency routes">送信先・緊急経路</li><li data-en="Audit trails and recovery conditions">監査証跡・復旧条件</li><li data-en="Implementation priorities">導入優先順位</li></ul></article>
+        <article class="engagement-card"><span class="card-index">02 / IMPLEMENTATION REVIEW</span><h3 data-en="Review what you can share">見せられる範囲をレビュー</h3><p data-en="Review the code, architecture, and tests you are able to share. Compare the implementation with the intended volume, time, approval, and routing boundaries.">見せられる範囲のコード・構成・テストを確認。量・時間・承認・経路の条件が、意図どおり実装されているかを整理します。</p><p class="card-footnote" data-en="Review scope is agreed around the material available.">共有できる情報に合わせて、確認範囲を定めます。</p></article>
+        <article class="engagement-card"><span class="card-index">03 / VERIFICATION</span><h3 data-en="Check the implemented limits">実装後の事故半径を確認</h3><p data-en="After implementation, check whether the agreed conditions limit the blast radius as designed. Make verified conditions and remaining unknowns explicit.">実装後に、設計どおり事故半径が制限されているかを確認。確認できた条件と、残る未確認事項を明確にします。</p><p class="card-footnote" data-en="Verification is bounded by the agreed scope and environment.">合意した範囲・環境で確認します。</p></article>
+      </div>
+      <ol class="engagement-path" aria-label="進め方の例" data-en-aria-label="An example engagement path"><li>Design</li><li data-en="Internal Implementation">社内で実装</li><li>Verification</li></ol>
+      <p class="approval-note" data-en="There is no universal approval count. A 2-of-3 or 3-of-5 rule may be appropriate in some workflows; the actual roles, thresholds, and timing are designed for your organization.">承認人数に一律の正解はありません。2-of-3 / 3-of-5などは設計例であり、実際の役割・条件・時間は各社の業務要件に合わせて定めます。</p>
+    </section>
+
+    <section class="disclosure-section container" aria-labelledby="disclosure-title">
+      <div class="disclosure-marker" aria-hidden="true">[ ]</div>
+      <div><p class="eyebrow">07 / START WITH WHAT YOU CAN SHARE</p><h2 id="disclosure-title" data-en="You do not need to disclose your entire source code.">ソースコードをすべて開示いただく必要はありません。</h2><p data-en="We can map the conditions for full-data access using only the architecture, workflow, and implementation details your organization is able to share.">見せられる範囲だけでも、全量到達までの条件を整理できます。共有できる構成・業務フロー・実装情報から始められます。</p><p class="muted" data-en="The depth of verification depends on the information available. We make the limits of any review explicit.">確認できる深さは、共有いただける情報によって異なります。確認範囲と限界を明確にします。</p></div>
+    </section>
+
+    <section class="section container proof-section" id="proof" aria-labelledby="proof-title">
+      <div class="section-heading proof-heading"><div><p class="eyebrow">08 / PUBLIC TECHNICAL WORK</p><h2 id="proof-title" data-en="A public trail of technical work.">公開された修正履歴を、追跡できます。</h2></div><a class="text-link" href="https://github.com/shin4141"><span data-en="GitHub profile">GitHubプロフィール</span><span aria-hidden="true">↗</span></a></div>
+      <div class="proof-grid">
+        <article class="proof-card portfolio-proof"><span class="proof-type" data-en="DIRECT UPSTREAM MERGES">上流への直接merge</span><strong class="proof-number">30<span>+</span></strong><h3 data-en="OSS fixes accepted upstream">30件超のOSS修正が上流採用</h3><p data-en="The public portfolio links to the original pull requests and their adoption records.">公開台帳から、元のPRと採用記録へ辿れます。</p><a href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md"><span data-en="View the contribution ledger">修正・採用の公開台帳を見る</span><span aria-hidden="true">↗</span></a></article>
+        <article class="proof-card"><span class="proof-type">KAKAO / ACTIONBASE</span><h3 data-en="Merged into Actionbase">Actionbaseでmerge</h3><p data-en="A fix to return a pooled encoding buffer even when encoding fails. The original PR records the review and merge.">エンコード失敗時にも、借りたバッファをプールへ戻す修正。元のPRでレビューとmergeを確認できます。</p><a href="https://github.com/kakao/actionbase/pull/505"><span data-en="View PR #505">PR #505を確認する</span><span aria-hidden="true">↗</span></a></article>
+        <article class="proof-card"><span class="proof-type">OPENSSL / UPSTREAM ADOPTION</span><h3 data-en="Adopted into OpenSSL master">OpenSSLで上流採用</h3><p data-en="A repair for recursive random-seed source construction was adopted via a maintainer commit. This is a separate adoption route from a direct PR merge.">乱数seed source構築の再帰に関する修正が、maintainer commit経由でmasterへ採用。直接PR mergeとは別の採用経路です。</p><a href="https://github.com/openssl/openssl/commit/aeeca5a9e07166183fe323f336c9177a9b524c78"><span data-en="View the adoption commit">採用commitを確認する</span><span aria-hidden="true">↗</span></a></article>
+      </div>
+      <p class="proof-note" data-en="These are public OSS contributions. They are not client engagements, a record of paid security consulting, or endorsements by the organizations named.">これらは公開OSSへの貢献です。顧客契約実績、有償security consultingの実績、掲載企業からの推薦を示すものではありません。</p>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-grid">
+        <div><p class="eyebrow">09 / START WITH THE CONDITIONS</p><h2 id="contact-title" data-en="Map the conditions for full-data access.">全量到達の条件を整理する。</h2><p class="contact-lead" data-en="If one administrator credential or API key were misused, how far could it reach today? Start by mapping the conditions, without disclosing your entire codebase.">管理者権限やAPIキーが1つ悪用された場合、現在どこまで到達できるのか。コードの全面開示なしでも、まず条件整理から始められます。</p><a class="button primary" data-contact-email href="mailto:siriusa.paper@gmail.com?subject=Sensitive%20Data%20Egress%20Gate%20%E3%81%AE%E7%9B%B8%E8%AB%87"><span data-en="Discuss by email">メールで相談する</span><span aria-hidden="true">↗</span></a><p class="contact-hint" data-en="Opens your email app. A short description of the workflow and what you can share is enough to start.">メールアプリが開きます。現在の取得経路と、共有できる範囲からお知らせください。</p></div>
+        <address class="contact-card"><span class="contact-name">Nagata Shinichi</span><p class="contact-role" data-en="AI & Software Systems Implementation / Independent Verification">AI・ソフトウェアシステムの実装／外部検証</p><dl><div><dt>Email</dt><dd><a href="mailto:siriusa.paper@gmail.com">siriusa.paper@gmail.com</a></dd></div><div><dt>Web</dt><dd><a href="https://shin4141.github.io/">shin4141.github.io <span aria-hidden="true">↗</span></a></dd></div><div><dt>GitHub</dt><dd><a href="https://github.com/shin4141">github.com/shin4141 <span aria-hidden="true">↗</span></a></dd></div><div><dt>Tel</dt><dd><a href="tel:+819050660630">090-5066-0630</a></dd></div><div><dt data-en="Based in">所在地</dt><dd data-en="Chigasaki, Kanagawa, Japan">神奈川県茅ヶ崎市</dd></div></dl></address>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer container"><a href="https://shin4141.github.io/" data-en="Nagata Shinichi · Main website">Nagata Shinichi · メインサイト</a><p data-en="Sensitive Data Egress Gate / Maximum Loss Design">Sensitive Data Egress Gate / 最大被害量の設計</p><a href="#main" class="back-to-top"><span data-en="Back to top">ページ上部へ</span><span aria-hidden="true">↑</span></a></footer>
+  <p id="language-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+</body>
+</html>
