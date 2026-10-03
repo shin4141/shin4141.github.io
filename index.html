@@ -723,6 +723,52 @@
       gap: 14px;
     }
 
+    .egress-feature {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 32px;
+      margin-top: 22px;
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+    }
+
+    .egress-feature h3 {
+      margin: 0;
+      font-family: ui-serif, Georgia, serif;
+      font-size: clamp(24px, 2.3vw, 28px);
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .egress-feature-summary {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .egress-feature-question {
+      max-width: 650px;
+      margin: 14px 0 0;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .egress-feature-link {
+      display: inline-flex;
+      align-items: center;
+      justify-self: end;
+      gap: 10px;
+      max-width: 100%;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .egress-feature-link span:first-child { min-width: 0; }
+    .egress-feature-link span:last-child { flex: 0 0 auto; }
+
     .principles {
       padding: clamp(34px, 5vw, 58px);
       border-radius: 24px;
@@ -956,6 +1002,8 @@
       .contact-layout,
       .value-contact { grid-template-columns: 1fr; }
       .value-contact-action { text-align: left; }
+      .egress-feature { grid-template-columns: 1fr; gap: 20px; }
+      .egress-feature-link { justify-self: start; }
     }
 
     @media (max-width: 560px) {
@@ -1222,6 +1270,15 @@
           <p class="safety-line">本人確認済みの利用者であっても、危険な判断をする可能性まで含めて、AIを止める境界を設計します。</p>
         </div>
       </div>
+
+      <article class="egress-feature" lang="en" aria-labelledby="egress-feature-title">
+        <div>
+          <h3 id="egress-feature-title">Sensitive Data Egress Gate</h3>
+          <p class="egress-feature-summary">Maximum Loss Design for sensitive-data access.</p>
+          <p class="egress-feature-question">If one administrator credential is compromised, how much data can it reach?</p>
+        </div>
+        <a class="egress-feature-link" href="/sensitive-data-egress-gate/"><span>View Sensitive Data Egress Gate</span><span aria-hidden="true">→</span></a>
+      </article>
     </section>
 
     <section class="section" aria-labelledby="principles-title">
