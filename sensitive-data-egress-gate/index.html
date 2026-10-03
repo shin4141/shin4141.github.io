@@ -100,7 +100,7 @@
           <p data-en="Start with one question: what could a single abused credential actually reach?">1つの認証情報が悪用されたとき、実際にどこまで取得できるかを考えてみてください。</p>
         </div>
         <fieldset class="level-options">
-          <legend data-en="Choose the description closest to your current extraction path.">現在の取得経路に最も近い説明を選んでください。</legend>
+          <legend data-en="Choose the closest description of your current access path. This is a map, not a score.">採点ではありません。現在の取得経路に最も近い説明を選んでください。</legend>
           <label class="level-card">
             <span class="level-number"><span>LEVEL</span><strong>01</strong></span>
             <span class="level-content"><strong data-en="Authentication grants full or near-full access">認証できれば全量取得可能</strong><span data-en="A successful login is enough to reach all, or effectively all, sensitive records.">ログインできれば、全件または実質全件へ届く。</span></span>
@@ -121,7 +121,7 @@
           </label>
           <label class="level-card">
             <span class="level-number"><span>LEVEL</span><strong>04</strong></span>
-            <span class="level-content"><strong data-en="Large exports require additional approval, destination controls, or delay">大量取得に別担当者承認・送信先制限・待機時間あり</strong><span data-en="High-volume release has extra conditions beyond ordinary access.">通常の取得とは別に、大量Releaseの条件を定めている。</span></span>
+            <span class="level-content"><strong data-en="Large exports have additional release conditions">大量取得に追加の条件</strong><span data-en="Additional approval, destination controls, or a waiting period are defined according to operational needs.">別担当者承認・送信先制限・待機時間など、業務に応じた条件がある。</span></span>
             <span class="level-boundary" data-en="+ Release conditions">+ Release条件</span>
             <input type="radio" name="egress-level" value="4">
           </label>
@@ -176,11 +176,12 @@
 
     <section class="disclosure-section container" aria-labelledby="disclosure-title">
       <div class="disclosure-marker" aria-hidden="true">[ ]</div>
-      <div><p class="eyebrow">07 / START WITH WHAT YOU CAN SHARE</p><h2 id="disclosure-title" data-en="You do not need to disclose your entire source code.">ソースコードをすべて開示いただく必要はありません。</h2><p data-en="We can map the conditions for full-data access using only the architecture, workflow, and implementation details your organization is able to share.">見せられる範囲だけでも、全量到達までの条件を整理できます。共有できる構成・業務フロー・実装情報から始められます。</p><p class="muted" data-en="The depth of verification depends on the information available. We make the limits of any review explicit.">確認できる深さは、共有いただける情報によって異なります。確認範囲と限界を明確にします。</p></div>
+      <div><p class="eyebrow">07 / START WITH WHAT YOU CAN SHARE</p><h2 id="disclosure-title"><span class="jp-phrase" data-en="You do not need to disclose ">ソースコードをすべて</span><span class="jp-phrase" data-en="your entire ">開示いただく必要は</span><span class="jp-phrase" data-en="source code.">ありません。</span></h2><p data-en="We can map the conditions for full-data access using only the architecture, workflow, and implementation details your organization is able to share.">見せられる範囲だけでも、全量到達までの条件を整理できます。共有できる構成・業務フロー・実装情報から始められます。</p><p class="muted" data-en="The depth of verification depends on the information available. We make the limits of any review explicit.">確認できる深さは、共有いただける情報によって異なります。確認範囲と限界を明確にします。</p></div>
     </section>
 
     <section class="section container proof-section" id="proof" aria-labelledby="proof-title">
       <div class="section-heading proof-heading"><div><p class="eyebrow">08 / PUBLIC TECHNICAL WORK</p><h2 id="proof-title" data-en="A public trail of technical work.">公開された修正履歴を、追跡できます。</h2></div><a class="text-link" href="https://github.com/shin4141"><span data-en="GitHub profile">GitHubプロフィール</span><span aria-hidden="true">↗</span></a></div>
+      <p class="proof-intro" data-en="Public OSS implementation and verification work by Nagata Shinichi (GitHub: shin4141). Follow the original pull requests and commits to see the changes, reviews, and adoption.">Nagata Shinichi（GitHub: shin4141）の公開OSS実装・検証記録です。元のPRとcommitから、修正内容とレビュー・採用経緯を確認できます。</p>
       <div class="proof-grid">
         <article class="proof-card portfolio-proof"><span class="proof-type" data-en="DIRECT UPSTREAM MERGES">上流への直接merge</span><strong class="proof-number">30<span>+</span></strong><h3 data-en="OSS fixes accepted upstream">30件超のOSS修正が上流採用</h3><p data-en="The public portfolio links to the original pull requests and their adoption records.">公開台帳から、元のPRと採用記録へ辿れます。</p><a href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md"><span data-en="View the contribution ledger">修正・採用の公開台帳を見る</span><span aria-hidden="true">↗</span></a></article>
         <article class="proof-card"><span class="proof-type">KAKAO / ACTIONBASE</span><h3 data-en="Merged into Actionbase">Actionbaseでmerge</h3><p data-en="A fix to return a pooled encoding buffer even when encoding fails. The original PR records the review and merge.">エンコード失敗時にも、借りたバッファをプールへ戻す修正。元のPRでレビューとmergeを確認できます。</p><a href="https://github.com/kakao/actionbase/pull/505"><span data-en="View PR #505">PR #505を確認する</span><span aria-hidden="true">↗</span></a></article>
@@ -191,7 +192,7 @@
 
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
       <div class="container contact-grid">
-        <div><p class="eyebrow">09 / START WITH THE CONDITIONS</p><h2 id="contact-title" data-en="Map the conditions for full-data access.">全量到達の条件を整理する。</h2><p class="contact-lead" data-en="If one administrator credential or API key were misused, how far could it reach today? Start by mapping the conditions, without disclosing your entire codebase.">管理者権限やAPIキーが1つ悪用された場合、現在どこまで到達できるのか。コードの全面開示なしでも、まず条件整理から始められます。</p><a class="button primary" data-contact-email href="mailto:siriusa.paper@gmail.com?subject=Sensitive%20Data%20Egress%20Gate%20%E3%81%AE%E7%9B%B8%E8%AB%87"><span data-en="Discuss by email">メールで相談する</span><span aria-hidden="true">↗</span></a><p class="contact-hint" data-en="Opens your email app. A short description of the workflow and what you can share is enough to start.">メールアプリが開きます。現在の取得経路と、共有できる範囲からお知らせください。</p></div>
+        <div><p class="eyebrow">09 / START WITH THE CONDITIONS</p><h2 id="contact-title"><span class="jp-phrase" data-en="Map the conditions ">全量到達の条件を</span><span class="jp-phrase" data-en="for full-data access.">整理する。</span></h2><p class="contact-lead" data-en="If one administrator credential or API key were misused, how far could it reach today? Start by mapping the conditions, without disclosing your entire codebase.">管理者権限やAPIキーが1つ悪用された場合、現在どこまで到達できるのか。コードの全面開示なしでも、まず条件整理から始められます。</p><a class="button primary" data-contact-email href="mailto:siriusa.paper@gmail.com?subject=Sensitive%20Data%20Egress%20Gate%20%E3%81%AE%E7%9B%B8%E8%AB%87"><span data-en="Discuss full-data access">全量到達の条件を相談する</span><span aria-hidden="true">↗</span></a><p class="contact-hint" data-en="Opens your email app. A short description of the workflow and what you can share is enough to start.">メールアプリが開きます。現在の取得経路と、共有できる範囲からお知らせください。</p></div>
         <address class="contact-card"><span class="contact-name">Nagata Shinichi</span><p class="contact-role" data-en="AI & Software Systems Implementation / Independent Verification">AI・ソフトウェアシステムの実装／外部検証</p><dl><div><dt>Email</dt><dd><a href="mailto:siriusa.paper@gmail.com">siriusa.paper@gmail.com</a></dd></div><div><dt>Web</dt><dd><a href="https://shin4141.github.io/">shin4141.github.io <span aria-hidden="true">↗</span></a></dd></div><div><dt>GitHub</dt><dd><a href="https://github.com/shin4141">github.com/shin4141 <span aria-hidden="true">↗</span></a></dd></div><div><dt>Tel</dt><dd><a href="tel:+819050660630">090-5066-0630</a></dd></div><div><dt data-en="Based in">所在地</dt><dd data-en="Chigasaki, Kanagawa, Japan">神奈川県茅ヶ崎市</dd></div></dl></address>
       </div>
     </section>
