@@ -761,6 +761,7 @@
       align-items: center;
       justify-self: end;
       gap: 10px;
+      width: 17.517em;
       max-width: 100%;
       font-size: 14px;
       font-weight: 700;
@@ -768,6 +769,24 @@
 
     .egress-feature-link span:first-child { min-width: 0; }
     .egress-feature-link span:last-child { flex: 0 0 auto; }
+    .egress-feature .keep-phrase { white-space: nowrap; }
+
+    @media (max-width: 396px) {
+      .egress-feature-summary .jp-copy-line { display: block; }
+    }
+
+    @media (max-width: 397px) {
+      .egress-feature-question > .jp-copy-line { display: block; }
+    }
+
+    @media (min-width: 398px) and (max-width: 657px),
+           (min-width: 801px) and (max-width: 947px) {
+      .egress-feature-question { min-height: 3.4em; }
+    }
+
+    @media (max-width: 327px) {
+      .egress-feature-link { min-height: 3.6em; }
+    }
 
     .principles {
       padding: clamp(34px, 5vw, 58px);
@@ -1271,13 +1290,13 @@
         </div>
       </div>
 
-      <article class="egress-feature" lang="en" aria-labelledby="egress-feature-title">
+      <article class="egress-feature" lang="ja" aria-labelledby="egress-feature-title">
         <div>
-          <h3 id="egress-feature-title">Sensitive Data Egress Gate</h3>
-          <p class="egress-feature-summary">Maximum Loss Design for sensitive-data access.</p>
-          <p class="egress-feature-question">If one administrator credential is compromised, how much data can it reach?</p>
+          <h3 id="egress-feature-title" lang="en">Sensitive Data Egress Gate</h3>
+          <p class="egress-feature-summary"><span class="jp-copy-line">機微データの「最大被害量」を</span><span class="jp-copy-line keep-phrase">設計する。</span></p>
+          <p class="egress-feature-question"><span class="jp-copy-line">管理者アカウントが1つ</span><span class="jp-copy-line">破られたとき、<span class="keep-phrase">何件</span>の</span><span class="jp-copy-line"><span class="keep-phrase">個人情報</span>まで<span class="keep-phrase">到達できるか。</span></span></p>
         </div>
-        <a class="egress-feature-link" href="/sensitive-data-egress-gate/"><span>View Sensitive Data Egress Gate</span><span aria-hidden="true">→</span></a>
+        <a class="egress-feature-link" href="/sensitive-data-egress-gate/"><span>詳しく見る</span><span aria-hidden="true">→</span></a>
       </article>
     </section>
 
