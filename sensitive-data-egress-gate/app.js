@@ -31,7 +31,7 @@
     ja: [
       ['全量までの経路を確認する', '1つの権限で取得できる範囲は何件ですか。通常の業務に必要な範囲と、全量取得の条件を分けられますか。'],
       ['繰り返し取得した場合を確認する', '1回の上限を守って取得を繰り返すと、一定時間内に合計で何件まで届きますか。'],
-      ['量以外のRelease条件を確認する', '上限を超える業務では、誰の承認が必要ですか。送信先や待機時間の条件も定まっていますか。'],
+      ['量以外の取得許可の条件を確認する', '上限を超える業務では、誰の承認が必要ですか。送信先や待機時間の条件も定まっていますか。'],
       ['全量取得と例外経路を確認する', '大量取得の制御とは別に、全量取得の条件は定まっていますか。権限変更直後や緊急経路でも、その条件は保たれますか。'],
       ['設計と実装の一致を確認する', '複数承認・時間制約・専用経路が、例外時にも設計どおり働くかを確認していますか。確認済みの範囲と未確認事項を整理できますか。']
     ],
@@ -46,7 +46,65 @@
 
   const result = document.getElementById('check-result');
   const languageButtons = [...document.querySelectorAll('[data-language]')];
+  const copyButton = document.getElementById('copy-ai-prompt');
+  const copyStatus = document.getElementById('ai-copy-status');
+  const copyMessages = {
+    ja: { success: 'コピーしました', manual: '文章を選択しました。⌘C / Ctrl+C、または選択メニューでコピーしてください。' },
+    en: { success: 'Copied', manual: 'Prompt selected. Copy with ⌘C / Ctrl+C, or use the selection menu.' }
+  };
   let language = 'ja';
+
+  function copyWithSelection(prompt) {
+    const details = prompt.closest('details');
+    const wasOpen = details.open;
+    details.open = true;
+    prompt.focus({ preventScroll: true });
+    prompt.select();
+    prompt.setSelectionRange(0, prompt.value.length);
+    let copied = false;
+    try {
+      copied = document.execCommand('copy');
+    } catch {
+      // Keep the visible selection available for a manual copy.
+    }
+    if (copied) {
+      details.open = wasOpen;
+    } else {
+      prompt.scrollIntoView({ block: 'center' });
+    }
+    return copied;
+  }
+
+  async function copyPrompt() {
+    const requestedLanguage = language;
+    const prompt = document.getElementById(`ai-prompt-${requestedLanguage}`);
+    let copied = false;
+    let usedSelection = false;
+    copyButton.disabled = true;
+    copyStatus.textContent = '';
+    try {
+      if (window.isSecureContext && navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(prompt.value);
+          copied = true;
+        } catch {
+          // Restricted clipboard access falls back to a selectable prompt.
+        }
+      }
+      if (!copied && language === requestedLanguage) {
+        usedSelection = true;
+        copied = copyWithSelection(prompt);
+      }
+      if (language === requestedLanguage) {
+        copyStatus.textContent = copied ? copyMessages[language].success : copyMessages[language].manual;
+      } else if (copied) {
+        copyStatus.textContent = language === 'ja' ? '英語の文章をコピーしました。' : 'Copied the Japanese prompt.';
+      }
+    } finally {
+      copyButton.disabled = false;
+      if (usedSelection && copied) copyButton.focus({ preventScroll: true });
+    }
+  }
 
   function languageFromURL() {
     return new URL(window.location.href).searchParams.get('lang') === 'en' ? 'en' : 'ja';
@@ -60,7 +118,7 @@
     }
     const level = Number(selected.value);
     const [title, question] = nextChecks[language][level - 1];
-    document.getElementById('result-level').textContent = `LEVEL 0${level} / ${language === 'ja' ? '次に確認する条件' : 'WHAT TO CHECK NEXT'}`;
+    document.getElementById('result-level').textContent = language === 'ja' ? `段階 0${level} / 次に確認する条件` : `LEVEL 0${level} / WHAT TO CHECK NEXT`;
     document.getElementById('result-title').textContent = title;
     document.getElementById('result-question').textContent = question;
     result.hidden = false;
@@ -69,6 +127,7 @@
   function setLanguage(nextLanguage, { updateURL = false, announce = false } = {}) {
     language = nextLanguage === 'en' ? 'en' : 'ja';
     document.documentElement.lang = language;
+    copyStatus.textContent = '';
     translations.forEach(({ element, ...text }) => { element.textContent = text[language]; });
     accessibleLabels.forEach(({ element, ...labels }) => { element.setAttribute('aria-label', labels[language]); });
     languageButtons.forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.language === language)); });
@@ -78,6 +137,10 @@
     document.querySelector('meta[property="og:description"]').content = metadata[language].ogDescription;
     document.querySelectorAll('[data-contact-email]').forEach(link => {
       link.href = `mailto:siriusa.paper@gmail.com?subject=${encodeURIComponent(metadata[language].emailSubject)}`;
+    });
+    document.querySelectorAll('[data-sample-pdf]').forEach(link => {
+      link.href = language === 'en' ? link.dataset.enHref : link.dataset.jaHref;
+      link.hreflang = language;
     });
     updateResult();
     if (updateURL) {
@@ -101,6 +164,8 @@
     input.addEventListener('change', updateResult);
   });
   window.addEventListener('popstate', () => setLanguage(languageFromURL()));
+  copyButton.addEventListener('click', copyPrompt);
   setLanguage(languageFromURL());
   document.querySelector('.language-switch').hidden = false;
+  copyButton.hidden = false;
 })();
