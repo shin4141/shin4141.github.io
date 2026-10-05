@@ -756,19 +756,52 @@
       line-height: 1.7;
     }
 
+    .egress-feature > div { min-width: 0; }
+
+    .egress-feature-note {
+      max-width: 650px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
     .egress-feature-link {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       justify-self: end;
-      gap: 10px;
-      width: 17.517em;
+      gap: 12px;
+      width: max-content;
+      min-width: 0;
       max-width: 100%;
+      min-height: 52px;
+      padding: 14px 18px;
+      border: 1px solid var(--link);
+      border-radius: 10px;
+      background: var(--link);
+      color: var(--surface);
       font-size: 14px;
       font-weight: 700;
+      line-height: 1.6;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .egress-feature-link:hover {
+      background: var(--deep);
+      border-color: var(--deep);
+      text-decoration: none;
+    }
+
+    .egress-feature-link:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 10px;
     }
 
     .egress-feature-link span:first-child { min-width: 0; }
-    .egress-feature-link span:last-child { flex: 0 0 auto; }
+    .egress-feature-link span:last-child { flex: 0 0 auto; font-size: 18px; }
     .egress-feature .keep-phrase { white-space: nowrap; }
 
     @media (max-width: 396px) {
@@ -1021,7 +1054,7 @@
       .contact-layout,
       .value-contact { grid-template-columns: 1fr; }
       .value-contact-action { text-align: left; }
-      .egress-feature { grid-template-columns: 1fr; gap: 20px; }
+      .egress-feature { grid-template-columns: minmax(0, 1fr); gap: 20px; }
       .egress-feature-link { justify-self: start; }
     }
 
@@ -1294,9 +1327,10 @@
         <div>
           <h3 id="egress-feature-title" lang="en">Sensitive Data Egress Gate</h3>
           <p class="egress-feature-summary"><span class="jp-copy-line">機微データの「最大被害量」を</span><span class="jp-copy-line keep-phrase">設計する。</span></p>
-          <p class="egress-feature-question"><span class="jp-copy-line">管理者アカウントが1つ</span><span class="jp-copy-line">破られたとき、<span class="keep-phrase">何件</span>の</span><span class="jp-copy-line"><span class="keep-phrase">個人情報</span>まで<span class="keep-phrase">到達できるか。</span></span></p>
+          <p class="egress-feature-question"><span class="jp-copy-line">管理者アカウントが1つ</span><span class="jp-copy-line">破られたとき、<span class="keep-phrase">何人分</span>の</span><span class="jp-copy-line"><span class="keep-phrase">個人情報</span>まで<span class="keep-phrase">到達できますか？</span></span></p>
+          <p class="egress-feature-note">事故が起きる前に、被害の上限と止める境界を設計します。</p>
         </div>
-        <a class="egress-feature-link" href="/sensitive-data-egress-gate/"><span>詳しく見る</span><span aria-hidden="true">→</span></a>
+        <a class="egress-feature-link" href="/sensitive-data-egress-gate/"><span>自社の最大被害量を確認する</span><span aria-hidden="true">→</span></a>
       </article>
     </section>
 
