@@ -538,6 +538,18 @@ html[lang="ja"] .escalation-volume { font-family: inherit; }
 
 .decision-steps strong > span { font-size: inherit; color: inherit; }
 
+.trust-boundary-section { margin-top: 24px; padding: 32px 36px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.trust-boundary-section h2 { font-size: clamp(25px, 2.4vw, 32px); text-wrap: balance; }
+.trust-boundary-copy { max-width: 960px; margin-top: 20px; font-size: 15px; line-height: 1.85; }
+.trust-boundary-copy p + p { margin-top: 14px; }
+.trust-boundary-keyline { padding-left: 16px; border-left: 2px solid var(--accent); }
+.trust-boundary-evidence { margin-top: 18px; }
+@media (max-width: 480px) {
+  .trust-boundary-section { padding: 24px; }
+  html[lang="ja"] .trust-boundary-section h2 { font-size: clamp(22px, 6.3vw, 25px); }
+  .trust-boundary-copy { font-size: 14px; }
+}
+
 .hero-promise { margin-bottom: 8px; color: var(--muted); font-size: 14px; line-height: 1.7; }
 .hero h1, html[lang="en"] .hero h1 { font-size: clamp(32px, 3vw, 43px); line-height: 1.4; }
 .hero-core-question { margin-top: 24px; font-size: 21px; line-height: 1.65; text-wrap: pretty; }

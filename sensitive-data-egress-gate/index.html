@@ -268,6 +268,18 @@
       <div><p class="eyebrow" data-en="07 / START WITH WHAT YOU CAN SHARE">07 / 共有できる範囲から始める</p><h2 id="disclosure-title" data-en="You can start without sharing everything.">最初からすべてを預ける必要はありません</h2><p data-en="You do not need to disclose all of your source code or internal architecture. Start with only the information needed for the design: the relevant access paths, current limits, approval conditions, destinations, and exception routes.">ソースコードや内部構成をすべて開示する必要はありません。まずは、対象となる取得経路、現在の上限、承認条件、送信先、例外経路など、設計に必要な範囲だけから始められます。</p><p data-en="You can commission Design alone and have your engineers implement it. If needed, a later engagement can independently verify the implementation against the agreed conditions.">設計書の作成だけを外部へ依頼し、実装は御社のエンジニアが行う形でも構いません。必要であれば、実装後の確認だけ再度外部から依頼できます。</p></div>
     </section>
 
+    <section class="trust-boundary-section container" id="trust-boundary" aria-labelledby="trust-boundary-title">
+      <h2 id="trust-boundary-title" data-en="Trust should not be one-sided">信頼を一方通行にしない</h2>
+      <div class="trust-boundary-copy">
+        <p data-en="You should not have to expose sensitive internal information just to evaluate an outside security design.">外部のセキュリティ設計を評価するために、最初から機微な内部情報を広く開示する必要はありません。</p>
+        <p data-en="The Design phase is intentionally scoped around the minimum evidence needed to define the boundary. Full source code, production credentials, customer records, and broad internal access are not required.">設計書を作る段階（Design）では、境界を定義するために必要な最小限の情報だけを扱います。全ソースコード、本番認証情報、顧客原本、広範な内部アクセスは不要です。</p>
+        <p data-en="The aim is to reduce unnecessary legal, privacy, and operational risk for both sides.">これは依頼側と外部の確認担当者の双方にとって、不要な法的・プライバシー・運用リスクを増やさないための設計です。</p>
+        <p data-en="My work is publicly traceable through accepted upstream repairs across independent repositories. You can evaluate the reviewer through that history before exposing your systems.">また、外部の確認担当者としての実績は、複数の独立した公開OSSで受理された修正履歴として先に確認できます。システムを開示する前に、公開履歴から評価できます。</p>
+        <p class="trust-boundary-keyline"><strong data-en="You do not need to trust me with everything in order to evaluate whether the design is useful.">すべてを信用していただかなくても、この設計（Design）が有用かどうかを評価できる形にしています。</strong></p>
+      </div>
+      <a class="text-link trust-boundary-evidence" href="#proof"><span data-en="Review the public repair history">受理された修正履歴を見る</span><span aria-hidden="true">↓</span></a>
+    </section>
+
     <section class="section container proof-section" id="proof" aria-labelledby="proof-title">
       <div class="section-heading proof-heading"><div><p class="eyebrow">08 / PUBLIC TECHNICAL WORK</p><h2 id="proof-title" data-en="A public trail of technical work.">公開された修正履歴を、追跡できます。</h2></div><a class="text-link" href="https://github.com/shin4141"><span data-en="GitHub profile">GitHubプロフィール</span><span aria-hidden="true">↗</span></a></div>
       <p class="proof-intro" data-en="Public OSS implementation and verification work by Nagata Shinichi (GitHub: shin4141). Follow the original pull requests and commits to see the changes, reviews, and adoption.">Nagata Shinichi（GitHub: shin4141）の公開OSS実装・検証記録です。元のPRとcommitから、修正内容とレビュー・採用経緯を確認できます。</p>
