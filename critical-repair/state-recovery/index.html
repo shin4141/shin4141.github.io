@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Independent Investigation of False Success, Workflow Replay & Permission Boundaries | Shin</title>
+<meta name="description" content="Evidence-backed, scoped paid investigations into false completion, remote state mismatch, workflow partial writes, replay and authorization boundaries. Public Microsoft, Vercel and Rundeck upstream repair examples by shin4141.">
+<meta name="robots" content="index,follow"><link rel="canonical" href="https://shin4141.github.io/critical-repair/state-recovery/">
+<style>body{font:17px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;color:#162335;background:#fafbfc}main{max-width:790px;margin:auto;padding:48px 23px 80px}h1{font-size:clamp(1.8rem,4vw,2.65rem);line-height:1.17}h2{font-size:1.4rem;margin-top:2.5rem}a{color:#135eab}.small{color:#526174;font-size:.9rem}.panel{background:#edf3f8;padding:20px;border-left:4px solid #355b80;border-radius:4px}li{margin:.65rem 0}</style></head>
+<body><main>
+<p class="small">Independent software investigation · public upstream repair evidence</p>
+<h1>When software says “done”—but the state, event or permission is wrong</h1>
+<p>Is your workflow reporting success before a remote state exists? Did an interrupted write leave a step and its creation event out of sync? Can a configuration change cross a permission boundary?</p>
+<p>I am <a href="https://github.com/shin4141">Shin (shin4141)</a>. I investigate concrete failures around completion truth, workflow state transitions, authorization and recovery. My work includes reviewed upstream fixes in multiple third-party projects. A new codebase requires its own evidence and investigation; these examples do not establish that every system can be repaired the same way.</p>
+<h2>Problems and upstream evidence</h2>
+<ul>
+<li><strong>False success / HTTP 409 / remote state mismatch.</strong> An idempotent-success response must be checked against the requested remote state. <a href="https://github.com/microsoft/terraform-provider-power-platform/pull/1254">Microsoft Power Platform provider PR #1254 — merged repair</a>.</li>
+<li><strong>Workflow replay / partial writes / inconsistent step creation.</strong> A step entity and its matching creation event need an atomic commit, with existing partial-write orphans handled. <a href="https://github.com/vercel/workflow/pull/3575">Vercel Workflow PR #3575 — merged repair</a>. This does not claim all replay faults or all event/state mismatches are fixed.</li>
+<li><strong>Authorization / configuration import permission boundary.</strong> Configuration-changing project imports need the required configure permission in addition to import. <a href="https://github.com/rundeck/rundeck/pull/10488">Rundeck PR #10488 — merged repair</a>.</li>
+</ul>
+<h2>Is this relevant to a different product?</h2>
+<p>Possibly, when a failure shares a comparable state-transition, authority or recovery boundary. The product need not be one of the projects above. An actual diagnosis depends on the failing version, reproduction, data flow, existing controls and deployment constraints. This is not a claim of prior repair experience with an unspecified system.</p>
+<div class="panel">
+<h2>Focused paid investigation and repair inquiries</h2>
+<p>If you have a critical unresolved failure, send a public issue or a sanitized description of the expected versus actual state, the failure trigger and recovery behavior. I can assess whether a bounded independent investigation is appropriate. Availability, scope, schedule, price, confidentiality and responsibility are agreed before work begins; no response-time, security outcome or production repair guarantee is implied.</p>
+<p><a href="mailto:siriusa.paper@gmail.com?subject=Critical%20state%20or%20recovery%20investigation">Contact: siriusa.paper@gmail.com</a> · <a href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md">Verified merge portfolio</a></p>
+</div>
+<p class="small">This independent service page is not sponsored or endorsed by Microsoft, Vercel, Rundeck or their maintainers. Linked pull requests are evidence of specific OSS contributions, not paid client engagements.</p>
+</main></body></html>
