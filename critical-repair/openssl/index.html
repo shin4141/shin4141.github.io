@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenSSL Recursive Seed Source Stack Exhaustion | Independent Software Repair Consultation</title>
+<meta name="description" content="Evidence-backed repair example: OpenSSL RAND recursive seed-source construction causing stack exhaustion. Shin (shin4141) offers scoped, paid independent investigations of critical execution, failure and recovery boundaries.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://shin4141.github.io/critical-repair/openssl/">
+<style>body{font:17px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17212f;background:#fafbfc;margin:0}main{max-width:780px;margin:0 auto;padding:52px 24px 80px}h1{font-size:clamp(1.75rem,4vw,2.7rem);line-height:1.17;letter-spacing:-.03em}h2{font-size:1.35rem;margin-top:2.4rem}a{color:#155ea8}p,li{max-width:72ch}.eyebrow{color:#53647a;font-weight:700;letter-spacing:.08em;font-size:.76rem;text-transform:uppercase}.panel{background:#eef3f8;border-left:4px solid #355b80;padding:16px 20px;margin:24px 0;border-radius:3px}.links li{margin:.6rem 0}footer{border-top:1px solid #d8dee8;margin-top:45px;padding-top:20px;color:#546174;font-size:.88rem}</style></head>
+<body><main><div class="eyebrow">Public repair evidence · Independent technical consultation</div>
+<h1>OpenSSL recursive seed-source initialization: stack exhaustion and clean failure</h1>
+<p>A concrete case of an initialization failure boundary. A recursive RAND seed-source construction could exhaust the call stack. A reviewed change introduced a clean failure path. This is a public example of the boundary-oriented repair work associated with <a href="https://github.com/shin4141">Shin (GitHub: shin4141)</a>.</p>
+<h2>The failure and the verifiable repair trail</h2>
+<ol class="links"><li><a href="https://github.com/openssl/openssl/issues/32683">OpenSSL issue #32683</a> — source problem and upstream discussion.</li>
+<li><a href="https://github.com/openssl/openssl/commit/aeeca5a9e07166183fe323f336c9177a9b524c78">OpenSSL maintainer-committed repair, aeeca5a</a> — upstream adopted change.</li>
+<li><a href="https://github.com/openssl/openssl/pull/32685">Original PR #32685</a> — submitted by shin4141; the PR is closed, not directly merged. Upstream adoption is through the separate maintainer commit above.</li></ol>
+<p>The evidence shows one documented repair contribution and its upstream adoption. It is not a claim of employment by OpenSSL, a security certification, a paid client engagement, or a guarantee that another system has the same defect.</p>
+<h2>Have a similarly difficult failure boundary?</h2>
+<p>Examples of relevant investigation questions include recursive initialization and resource exhaustion, operations that falsely report completion, retry or recovery behavior that leaves state inconsistent, and authority checks that fail at transitions. Any new case needs its own reproduction and evidence.</p>
+<div class="panel"><strong>Focused, paid independent investigations and repairs may be available.</strong><p>For a specific unresolved issue, send a public issue link or sanitized failure path and a brief description of the impact. Scope, availability, timing, fees, confidentiality, and responsibility are agreed before work begins. No 24/7 response or outcome guarantee is offered.</p>
+<p><a href="mailto:siriusa.paper@gmail.com?subject=Scoped%20critical%20repair%20inquiry">Email a scoped inquiry</a> · <a href="https://github.com/shin4141">Review GitHub profile and broader repair portfolio</a></p></div>
+<h2>What was demonstrated?</h2>
+<p>The upstream records support the specific OpenSSL repair trail. They do not establish that all critical defects, security incidents, or other vendors' software can be fixed by the same method. Review the original issue, change, and author attribution before deciding whether an independent second perspective fits your case.</p>
+<footer>Published as one bounded discovery experiment. This page is independent of the OpenSSL project. <a href="https://github.com/shin4141/shin4141/blob/main/MERGE_PORTFOLIO.md">Additional independently reviewable upstream repair records</a>.</footer>
+</main></body></html>
