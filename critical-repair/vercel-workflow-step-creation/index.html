@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <title>Vercel Workflow: Step Exists but Creation Event Is Missing | Repair Case by Shin</title>
+  <meta name="description" content="An adopted PostgreSQL workflow repair by Shin: a step row without its creation event can stall replay. Atomic step creation, orphan recovery and rollback regression evidence, with clear scope limits.">
+  <link rel="canonical" href="https://shin4141.github.io/critical-repair/vercel-workflow-step-creation/">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fafbfc; color: #162335; font: 17px/1.7 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { max-width: 840px; margin: auto; padding: 32px 24px 72px; }
+    h1 { font-size: clamp(1.85rem, 4vw, 2.7rem); line-height: 1.2; }
+    h2 { font-size: 1.4rem; margin-top: 2.2rem; }
+    a { color: #135eab; text-underline-offset: .2em; overflow-wrap: anywhere; }
+    a:focus-visible { outline: 3px solid #b99454; outline-offset: 3px; }
+    code { font-size: .92em; overflow-wrap: anywhere; }
+    li { margin: .6rem 0; }
+    .small { color: #526174; font-size: .9rem; }
+    .boundary { padding: 18px 22px; border-left: 4px solid #355b80; background: #edf3f8; border-radius: 4px; }
+    .boundary p:first-child { margin-top: 0; }
+    .boundary p:last-child { margin-bottom: 0; }
+    footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #dbe2e8; }
+  </style>
+</head>
+<body>
+<main>
+  <nav aria-label="Site"><a href="/">Home</a> · <a href="/critical-repair/state-recovery/">State and recovery investigations</a></nav>
+  <p class="small">Public OSS repair case · PostgreSQL workflow state and replay</p>
+  <h1>A step exists, but its creation event is missing—and retries cannot make progress</h1>
+  <p>In a self-hosted Vercel Workflow PostgreSQL world, an interrupted write could leave a step in the database without its matching <code>step_created</code> event. Replay then tries to create a step that the database already considers claimed. The result can be a workflow that keeps replaying instead of progressing.</p>
+  <p><a href="https://github.com/vercel/workflow/issues/3081">Issue #3081, reported by ShadowWalker2014</a>, documents this failure and an existing operational workaround. Its production observations are the reporter's account, not a customer engagement or independently reproduced incident by Shin.</p>
+
+  <h2>The boundary: database state and replay history must agree</h2>
+  <p>The original creation path committed two separate writes: the step entity in <code>workflow_steps</code>, then its replay record in <code>workflow_events</code>. A failure between them could preserve the ownership claim while losing the event that tells replay the step was created.</p>
+  <div class="boundary">
+    <p><strong>Database row:</strong> this step already exists.</p>
+    <p><strong>Replay history:</strong> this step has not been created.</p>
+    <p>A retry alone does not reconcile these conflicting facts. Recovery must distinguish an incomplete previous write from a genuine concurrent creation.</p>
+  </div>
+
+  <h2>What Shin repaired</h2>
+  <p>I am <a href="https://github.com/shin4141">Shin (shin4141)</a>, the author of <a href="https://github.com/vercel/workflow/pull/3575">PR #3575: make step creation atomic</a>. The adopted repair is limited to the PostgreSQL step-creation path:</p>
+  <ul>
+    <li>Commit the step entity and its matching <code>step_created</code> event in one transaction, so a failed event insert rolls the new step claim back.</li>
+    <li>For an existing orphaned step row with no creation event, retain the row and complete the missing event rather than repeatedly treating it as a competing creation.</li>
+    <li>Preserve the conflict behavior when a matching creation event already exists, within the existing transaction and event-slot semantics.</li>
+  </ul>
+  <p>The <a href="https://github.com/vercel/workflow/pull/3575/files">implementation and test diff</a> shows the changes. The PR was merged on August 22, 2026; the <a href="https://github.com/vercel/workflow/commit/71bc027a6c4b1f963a06dec1a3fb0c7dce21b390">merge commit</a> is an independent adoption record.</p>
+
+  <h2>Regression evidence and third-party adoption</h2>
+  <ul>
+    <li><strong>Forced write failure:</strong> a regression deliberately makes the event insert fail and verifies that neither the new step row nor its creation event remains.</li>
+    <li><strong>Existing partial write:</strong> a regression seeds an orphaned step row and verifies recovery before a normal <code>step_started</code> event.</li>
+    <li><strong>Review and merge:</strong> GitHub records approval by <code>VaguelySerious</code> and merge by <code>NathanColosimo</code>. These roles are separate from my PR authorship.</li>
+  </ul>
+  <p>The PR reports 141 storage integration tests against PostgreSQL 17.10, alongside build and type checks. These are the checks reported for that repair; no fresh test run or verification of your deployment is claimed here. The repository-standard Testcontainers suite was left to upstream CI.</p>
+
+  <h2>What this evidence does—and does not—cover</h2>
+  <p><strong>Demonstrated:</strong> an adopted step-creation repair, rollback regression and recovery of an existing creation-side orphan in <code>@workflow/world-postgres</code>.</p>
+  <p><strong>Not demonstrated:</strong> a repair by Shin for a completed wait or step with a missing completion event, completion-side replay loops or worker memory exhaustion. Later comments on Issue #3081 describe those related boundaries and local mitigations by other contributors. They are separate from my creation-side repair.</p>
+  <p>The issue's open status does not establish that your current version still has the creation fault. Check the installed implementation and release first. Safe production recovery, other event types, different storage backends and other products need their own reproduction and validation. No universal repair or outcome guarantee follows from this case.</p>
+
+  <h2>Focused paid investigation: existing scope and contact</h2>
+  <p>If your workflow state and event history disagree after an interruption, the case can help establish a precise investigation boundary. My existing <a href="https://github.com/shin4141#critical-repair-consulting">paid consultation scope and contact route</a> and <a href="/critical-repair/state-recovery/">state and recovery service page</a> describe focused investigation and repair inquiries.</p>
+  <p>Use those current public terms to assess availability and send a sanitized description. Scope, schedule, price, confidentiality and responsibility are agreed before work begins. This page records a specific OSS contribution; it adds no new pricing, response commitment or commercial success claim.</p>
+  <footer class="small">Independent contributor evidence, not endorsement or sponsorship by Vercel. Public PR adoption is not proof of a paid client engagement.</footer>
+</main>
+</body>
+</html>
