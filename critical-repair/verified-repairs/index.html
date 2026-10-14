@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <title>Verified OSS Repair Evidence | Shin — Implementation, Tests and Adoption</title>
+  <meta name="description" content="Seven specific software repairs by Shin: customer symptoms, implementation boundaries, regression evidence and upstream adoption. A technical portfolio with focused investigation inquiry details.">
+  <link rel="canonical" href="https://shin4141.github.io/critical-repair/verified-repairs/">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f6f8fa; color: #162335; font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { max-width: 920px; margin: auto; padding: 28px 22px 64px; }
+    h1 { font-size: clamp(1.85rem, 5vw, 2.65rem); line-height: 1.2; }
+    h2 { font-size: 1.3rem; line-height: 1.35; margin-top: 0; }
+    a { color: #135eab; text-underline-offset: .2em; overflow-wrap: anywhere; }
+    a:focus-visible { outline: 3px solid #b99454; outline-offset: 4px; }
+    code { font-size: .92em; overflow-wrap: anywhere; }
+    .small { color: #526174; font-size: .9rem; }
+    .jump { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 0; list-style: none; }
+    .case { margin-top: 22px; padding: 24px; border: 1px solid #d8e1e9; border-radius: 12px; background: #fff; }
+    dl { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 9px 18px; margin-bottom: 0; }
+    dt { font-weight: 650; color: #35526e; }
+    dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+    .contact { margin-top: 28px; padding: 24px; border-left: 4px solid #355b80; background: #eaf1f7; border-radius: 4px; }
+    footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #d8e1e9; }
+    @media (max-width: 540px) {
+      main { padding: 22px 16px 48px; }
+      .case, .contact { padding: 20px 16px; }
+      dl { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+      dd { margin-bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <nav aria-label="Site"><a href="/">Home</a> · <a href="https://github.com/shin4141">GitHub profile</a></nav>
+  <p class="small">Selected public OSS contributions · implementation, regression and upstream adoption</p>
+  <h1>Real software failures. Publicly adopted repairs.</h1>
+  <p>A successful response leaves the wrong settings behind. A code generator stops on a naming collision. An excluded rule still appears in a generated manifest. A workflow keeps retrying because its state and history disagree.</p>
+  <p>I am <a href="https://github.com/shin4141">Shin (shin4141)</a>. This portfolio connects seven concrete failures to my adopted upstream submissions, their tests and their limits. The linked originals identify authors, prior work and maintainers; they are evidence of specific repairs, not a promise that a different system can be repaired the same way.</p>
+  <ul class="jump" aria-label="Repair cases">
+    <li><a href="#remote-state">False success</a></li>
+    <li><a href="#generated-names">Generator collisions</a></li>
+    <li><a href="#manifest">Manifest exclusions</a></li>
+    <li><a href="#workflow">Workflow state/history</a></li>
+    <li><a href="#rand">Recursive initialization</a></li>
+    <li><a href="#buffer">Failure recovery</a></li>
+    <li><a href="#shared-column">Shared schema protection</a></li>
+  </ul>
+
+  <article class="case" id="remote-state">
+    <h2>Microsoft Power Platform provider: success without the requested remote state</h2>
+    <dl>
+      <dt>Symptom</dt><dd>Terraform can report success while a Managed Environment disable or Enterprise Policy link/unlink has not taken effect.</dd>
+      <dt>Boundary</dt><dd>An HTTP 409 can mean the requested state already exists, or that the operation was rejected. The response alone does not prove convergence.</dd>
+      <dt>Repair</dt><dd>Re-read remote state on those 409 paths, accept an already-achieved state, otherwise retry within the existing limit and return an error if it remains wrong. Other operations are outside this repair.</dd>
+      <dt>Regression</dt><dd>Focused tests cover idempotent success, retry and persistent-conflict termination for both services.</dd>
+      <dt>Adoption</dt><dd>PR authored by <code>shin4141</code>, approved and merged by maintainer <code>mawasile</code>.</dd>
+      <dt>Evidence</dt><dd><a href="https://github.com/microsoft/terraform-provider-power-platform/issues/1240">Original issue</a> · <a href="https://github.com/microsoft/terraform-provider-power-platform/pull/1254">Merged PR #1254</a> · <a href="https://github.com/microsoft/terraform-provider-power-platform/pull/1254/files">Code and tests</a></dd>
+    </dl>
+  </article>
+
+  <article class="case" id="generated-names">
+    <h2>Swift OpenAPI Generator: duplicate generated names stop translation</h2>
+    <dl>
+      <dt>Symptom</dt><dd>Distinct schema names become the same Swift name, causing a duplicate-key trap during generation.</dd>
+      <dt>Boundary</dt><dd>Generated-name uniqueness must be checked before recursive-type boxing builds its dictionary.</dd>
+      <dt>Repair</dt><dd>Detect collisions and emit a deterministic error with naming-strategy and override guidance; protect the non-throwing collector path. This diagnoses the collision rather than automatically generating a valid client.</dd>
+      <dt>Regression</dt><dd>Throwing and non-throwing collectors, multiple collisions and valid names in different namespaces are tested.</dd>
+      <dt>Adoption</dt><dd><code>shin4141</code> submitted the merged continuation of substantial prior work by Aditya Singh; <code>simonjbeaumont</code> reviewed and merged it. Discovery and sole authorship are not claimed.</dd>
+      <dt>Evidence</dt><dd><a href="https://github.com/apple/swift-openapi-generator/issues/854">Original issue</a> · <a href="https://github.com/apple/swift-openapi-generator/pull/939">Merged PR #939 and repair lineage</a> · <a href="https://github.com/apple/swift-openapi-generator/pull/939/files">Code and tests</a></dd>
+    </dl>
+  </article>
+
+  <article class="case" id="manifest">
+    <h2>macOS Security Compliance Project: excluded rules remain in the JSON manifest</h2>
+    <dl>
+      <dt>Symptom</dt><dd>The generated manifest includes rules explicitly placed in the excluded section.</dd>
+      <dt>Boundary</dt><dd>Rule classification and the JSON output must agree; profile exclusion behavior must also be preserved.</dd>
+      <dt>Repair</dt><dd>Skip excluded rules during manifest generation while retaining included rules and existing profile behavior.</dd>
+      <dt>Regression</dt><dd>A fixture tests excluded classification, JSON omission and unchanged configuration-profile exclusions.</dd>
+      <dt>Adoption</dt><dd><code>shin4141</code> authored PR #775, merged by <code>robertgendler</code> and listed in Release 27.0. This is project contribution credit, not NIST certification or a general compliance-audit qualification.</dd>
+      <dt>Evidence</dt><dd><a href="https://github.com/usnistgov/macos_security/issues/767">Original issue</a> · <a href="https://github.com/usnistgov/macos_security/pull/775">Merged PR #775</a> · <a href="https://github.com/usnistgov/macos_security/pull/775/files">Code and tests</a> · <a href="https://github.com/usnistgov/macos_security/releases/tag/release_27.0">Official release notes</a></dd>
+    </dl>
+  </article>
+
+  <article class="case" id="workflow">
+    <h2>Vercel Workflow: a step exists without its creation event</h2>
+    <dl>
+      <dt>Symptom</dt><dd>An interrupted PostgreSQL write leaves a step row but no creation event. Replay tries to create an already-claimed step and cannot progress.</dd>
+      <dt>Boundary</dt><dd>The step entity and its replay evidence must commit together; an existing orphan differs from a genuine concurrent creation.</dd>
+      <dt>Repair</dt><dd>Use one transaction for <code>step_created</code>, retain and recover existing creation-side orphan rows, and preserve genuine conflicts. Completion-side faults remain outside this repair.</dd>
+      <dt>Regression</dt><dd>A forced event-insert failure checks rollback; an orphan-row regression checks recovery before <code>step_started</code>.</dd>
+      <dt>Adoption</dt><dd>PR authored by <code>shin4141</code>, approved and merged by <code>VaguelySerious</code>.</dd>
+      <dt>Evidence</dt><dd><a href="https://github.com/vercel/workflow/issues/3081">Original report and related boundaries</a> · <a href="https://github.com/vercel/workflow/pull/3575">Merged PR #3575</a> · <a href="https://github.com/vercel/workflow/pull/3575/files">Code and tests</a></dd>
+    </dl>
+  </article>
+
+  <article class="case" id="rand">
+    <h2>OpenSSL RAND: recursive seed-source initialization exhausts the stack</h2>
+    <dl>
+      <dt>Symptom</dt><dd>Provider entropy or nonce upcalls re-enter seed-source construction until stack exhaustion.</dd>
+      <dt>Boundary</dt><dd>True recursive construction must be stopped without blocking independent asynchronous jobs that share a thread.</dd>
+      <dt>Repair</dt><dd>Track active construction by logical execution and fail true recursion with a RAND error, covering lookup, context creation and instantiation.</dd>
+      <dt>Regression</dt><dd>The adopted change adds strict-failure, independent/paused ASYNC, non-strict error-propagation and no-err coverage.</dd>
+      <dt>Adoption</dt><dd>PR #32685 is closed and was not directly merged. Maintainers adopted the repair separately in commit <code>aeeca5a9</code>, which credits <code>shin4141</code>, names reviewers and links back to that PR.</dd>
+      <dt>Evidence</dt><dd><a href="https://github.com/openssl/openssl/issues/32683">Original issue</a> · <a href="https://github.com/openssl/openssl/pull/32685">Closed PR #32685</a> · <a href="https://github.com/openssl/openssl/commit/aeeca5a9e07166183fe323f336c9177a9b524c78">Separate adopted implementation and tests</a></dd>
+    </dl>
+  </article>
+
+  <article class="case" id="buffer">
+    <h2>Kakao actionbase: an encoding exception consumes a pooled buffer</h2>
+    <dl>
+      <dt>Symptom</dt><dd>After one failed encoding, a later valid encoding cannot borrow the missing buffer.</dd>
+      <dt>Boundary</dt><dd>A borrowed resource must be returned on the exceptional path while preserving the original failure.</dd>
+      <dt>Repair</dt><dd>Return the buffer in <code>finally</code>; the next use resets it. Concurrent exhaustion beyond pool capacity is a separate boundary.</dd>
+      <dt>Regression</dt><dd>A one-buffer test checks the original exception, return of the same buffer and a subsequent encoding against a fresh encoder.</dd>
+      <dt>Adoption</dt><dd><code>shin4141</code> authored PR #505. Maintainer <code>em3s</code> reported failure on main and success with the patch, then approved and merged it.</dd>
+      <dt>Evidence</dt><dd><a href="https://github.com/kakao/actionbase/pull/505">Merged PR #505 and maintainer confirmation</a> · <a href="https://github.com/kakao/actionbase/pull/505/files">Code and regression test</a></dd>
+    </dl>
+  </article>
+
+  <article class="case" id="shared-column">
+    <h2>baserCMS: deleting a custom field removes a shared title column</h2>
+    <dl>
+      <dt>Symptom</dt><dd>Deleting a custom field named <code>title</code> also removes the built-in column, preventing existing records from being edited.</dd>
+      <dt>Boundary</dt><dd>Custom-field deletion must not own shared schema columns.</dd>
+      <dt>Repair</dt><dd>Protect the common columns, including implicit <code>id</code>, while preserving deletion of ordinary custom columns. Previously lost data recovery and creation/rename validation are outside this repair.</dd>
+      <dt>Regression</dt><dd>Tests check the shared title and link state, all common columns and ordinary-column deletion; the PR reports MySQL and SQLite checks.</dd>
+      <dt>Adoption</dt><dd><code>shin4141</code> authored PR #4554, merged by maintainer <code>ryuring</code>.</dd>
+      <dt>Evidence</dt><dd><a href="https://github.com/baserproject/basercms/issues/3713">Original customer-symptom report</a> · <a href="https://github.com/baserproject/basercms/pull/4554">Merged PR #4554</a> · <a href="https://github.com/baserproject/basercms/pull/4554/files">Code and tests</a></dd>
+    </dl>
+  </article>
+
+  <section class="contact" id="focused-inquiries" aria-labelledby="contact-title">
+    <h2 id="contact-title">Focused investigation inquiries</h2>
+    <p>Focused paid investigations and repairs may be available for related software failures. If your team is facing a difficult issue, please contact me with the symptoms, relevant repository or system, and what has already been tried. I can review the scope and discuss whether I can help.</p>
+    <p><a href="mailto:siriusa.paper@gmail.com">siriusa.paper@gmail.com</a> · <a href="https://github.com/shin4141#critical-repair-consulting">Current public scope and screening conditions</a></p>
+    <p>Availability, budget, schedule and responsibility are confirmed individually. Work begins only after verifying the requester's identity or organization, authorization for the target system, and written scope, payment and responsibility terms. Existing acceptance conditions apply; an inquiry is not a commitment to undertake the work.</p>
+  </section>
+
+  <footer class="small">
+    <p>This is a technical portfolio of independent OSS contributions. The organizations above are upstream project hosts, not claimed clients or endorsers. Several linked records disclose AI assistance; submission authorship, prior work, tests and maintainer adoption remain distinct.</p>
+    <p>Test evidence describes the linked repair and its stated environment. No fresh run on your system, universal cross-product ability, repair guarantee, commercial outcome or search placement is implied.</p>
+  </footer>
+</main>
+</body>
+</html>
