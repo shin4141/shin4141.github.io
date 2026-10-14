@@ -53,7 +53,7 @@
   <ul>
     <li><strong>Forced write failure:</strong> a regression deliberately makes the event insert fail and verifies that neither the new step row nor its creation event remains.</li>
     <li><strong>Existing partial write:</strong> a regression seeds an orphaned step row and verifies recovery before a normal <code>step_started</code> event.</li>
-    <li><strong>Review and merge:</strong> GitHub records approval by <code>VaguelySerious</code> and merge by <code>NathanColosimo</code>. These roles are separate from my PR authorship.</li>
+    <li><strong>Review and merge:</strong> GitHub records approval and merge by <code>VaguelySerious</code>. These roles are separate from my PR authorship.</li>
   </ul>
   <p>The PR reports 141 storage integration tests against PostgreSQL 17.10, alongside build and type checks. These are the checks reported for that repair; no fresh test run or verification of your deployment is claimed here. The repository-standard Testcontainers suite was left to upstream CI.</p>
 
